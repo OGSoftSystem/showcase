@@ -10,7 +10,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <>
-      <section className="mt-32 xl:mt-44 relative z10">
+      <section className="mt-28 xl:mt-44 relative z10">
         <Wrapper className="flex flex-col items-center h-auto justify-center">
 
 
@@ -21,14 +21,14 @@ export default function Home() {
           <h1 className="text-2xl md:mt-6 lg:mt-8 md:text-4xl xl:text-5xl font-bold bg-gradient-to-tr from-grad-3/60 to-grad-1/80 bg-clip-text text-transparent text-center xl:leading-tight">
             The King of pStables.
           </h1>
-          <p className="md:text-lg lg:text-xl font-light text-muted-foreground mt-4 lg:mt-2">
+          <p className="text-sm md:text-lg lg:text-xl font-light text-muted-foreground mt-2 lg:mt-2">
             Join The Future Stablecoin Movement.
           </p>
 
-          <Image src='/assets/icons/logo1.png' width={250} height={250} alt="site_logo" className="mt-8 shrink-0" />
+          <Image src='/assets/icons/logo1.png' width={250} height={250} alt="site_logo" className="mt-8 shrink-0" priority />
          
           <div className="mt-12">
-            <Button size="lg" className="btn text-white bg-ring font-bold h-16" asChild>
+            <Button size="lg" className="btn text-white bg-grad-1 font-bold h-16" asChild>
               <Link href="https://piteas.io" target="_blank" className="w-[10rem]">
                 Buy pLUSD
               </Link>
@@ -74,9 +74,10 @@ export default function Home() {
                 {note.text}
               </p>
                 </div>
-              <Button asChild size='lg' className="btn text-white bg-ring w-[8rem] ">
+              <Button asChild size='lg' className="btn text-white bg-grad-1 w-[8rem] ">
                 <Link href='/'>{note.btnText}</Link>
               </Button>
+              <Separator className="md:hidden" />
             </div>
           ))}
         </Wrapper>

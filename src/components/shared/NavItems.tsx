@@ -5,12 +5,12 @@ import { NAV_LINKS } from "../../constants";
 import Link from "next/link";
 import { ComponentProps } from "react";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
+import Logo from "./Logo";
 
 const NavItems = ({ className }: { className?: string }) => {
   return (
     <nav className={cn('hidden md:flex items-center justify-center w-fit shadow-lg rounded-[2rem] py-2 px-8 mt-2 bg-[#21104b]',className)}>
-      <Image src='/assets/icons/logo1.png' width={40} height={40} alt="site_logo" className="object-contain mr-4" />
+      <Logo width={40} height={40} className="mr-4" />
 
       <div className="flex items-center">
         {NAV_LINKS.map((link) => (

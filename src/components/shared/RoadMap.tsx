@@ -47,7 +47,7 @@ export default function RoadMap({ defaultColor }: { defaultColor: string }) {
               ></div>
             </div>
 
-            <Card className="px-8 py-4 w-full z-10 sm:w-96 group-hover:bg-ring/50 group-hover:rotate-[360deg] ease-in duration-300 cursor-pointer">
+            <Card className="px-8 py-4 w-full z-10 sm:w-96 group-hover:bg-grad-2/20 group-hover:rotate-[360deg] ease-in duration-300 cursor-pointer">
               <CardHeader>
                 <CardTitle className="text-xl text-muted-foreground font-medium">
                   {element.title}
@@ -58,7 +58,7 @@ export default function RoadMap({ defaultColor }: { defaultColor: string }) {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="mb-4 text-muted-foreground">
+                <div className="mb-4 p-text">
                   {element.description}
                 </div>
                 <Image

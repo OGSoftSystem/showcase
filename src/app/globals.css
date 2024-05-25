@@ -68,6 +68,6 @@ html {
     @apply text-3xl font-semibold my-8 text-accent-foreground;
   }
   .p-text {
-    @apply text-[18px] font-light leading-[1.5] text-grad-4;
+    @apply text-[1rem] font-light leading-[1.7] text-grad-4;
   }
 }
