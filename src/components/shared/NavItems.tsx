@@ -5,28 +5,27 @@ import { NAV_LINKS } from "../../constants";
 import Link from "next/link";
 import { ComponentProps } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
-const NavItems = ({ className }: { className: string }) => {
+const NavItems = ({ className }: { className?: string }) => {
   return (
-    <nav className={className}>
-      <div className="space-x-8">
-        {NAV_LINKS.slice(0, NAV_LINKS.length - 2).map((link) => (
+    <nav className={cn('hidden md:flex items-center justify-center w-fit shadow-lg rounded-[2rem] py-2 px-8 mt-2 bg-[#21104b]',className)}>
+      <Image src='/assets/icons/logo1.png' width={40} height={40} alt="site_logo" className="object-contain mr-4" />
+
+      <div className="flex items-center">
+        {NAV_LINKS.map((link) => (
           <NavLink key={link.label} href={link.url}>
-            {link.label}
+            
+            <div className="flex flex-col items-center">
+                <span>{link.Icon && <link.Icon size={22} />}</span>
+                <p className="text-sm md:text-[0.55rem] lg:[0.75rem] lg:block"> {link.label}</p>
+            </div>
+
           </NavLink>
         ))}
       </div>
 
-      <div className="space-x-8 flex">
-        {NAV_LINKS.slice(NAV_LINKS.length - 2).map((link) => (
-          <NavLink key={link.label} href={link.url}>
-            <div className="flex w-full">
-              {/* <span>{link.label}</span> */}
-              <div>{link.Icon && <link.Icon size={22} />}</div>
-            </div>
-          </NavLink>
-        ))}
-      </div>
+    
     </nav>
   );
 };
@@ -39,7 +38,7 @@ export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
     <Link
       {...props}
       className={cn(
-        "uppercase text-muted-foreground hover:text-ring focus-visible:text-ring font-semibold",
+        "uppercase px-4 h-10 text-white hover:text-ring focus-visible:text-ring font-light",
         {
           "text-ring": pathname == props.href,
         }

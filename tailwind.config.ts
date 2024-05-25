@@ -24,6 +24,16 @@ const config = {
         // inter: "var(--font-inter)",
       },
       colors: {
+        grad:{
+          1: '#1967FE',
+          2: '#A80AF5',
+          3: '#EA14BA',
+          4: '#eaf1f7',
+        },
+        main:{
+          1: '#390A45',
+          2: '#F0DED4'
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

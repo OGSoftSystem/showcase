@@ -62,12 +62,12 @@ html {
 }
 @layer utilities {
   .btn {
-    @apply rounded-full text-lg text-white bg-ring font-inter py-6;
+    @apply rounded-full text-lg font-inter py-6;
   }
   .page-heading {
     @apply text-3xl font-semibold my-8 text-accent-foreground;
   }
   .p-text {
-    @apply text-[18px] leading-[1.5] text-muted-foreground;
+    @apply text-[18px] font-light leading-[1.5] text-grad-4;
   }
 }
