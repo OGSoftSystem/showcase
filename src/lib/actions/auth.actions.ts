@@ -11,11 +11,11 @@ import {
 import { redirect } from "next/navigation";
 import connectToDatabase from "../database/mongodb";
 import User from "../database/models/user.model";
-import { SignInSchema } from "../validation";
+import { SignInSchema, SignInType } from "../validation";
 
 export const getSession = async () => {
   const session = await getIronSession<SessionData>(cookies(), sessionOptions);
-  
+
   if (!session) throw new Error("No logged in user");
   if (!session.isLoggedIn) {
     session.username = defaultSession.username;

@@ -1,7 +1,3 @@
-declare type SignInType = {
-  email: string;
-  password: string;
-};
 
 export type UserType ={
   _id:string;
