@@ -1,7 +1,8 @@
-import { FaXTwitter, FaPeopleGroup, } from "react-icons/fa6";
-import { FaHome, FaHistory, FaBurn, FaBlog } from "react-icons/fa";
+import { FaXTwitter, FaPeopleGroup } from "react-icons/fa6";
+import { FaHome, FaBook, FaBurn, FaBlog } from "react-icons/fa";
 import { RiRoadMapLine } from "react-icons/ri";
 import { LuLayoutDashboard } from "react-icons/lu";
+import { Newspaper, UserPlus, Users } from "lucide-react";
 
 type Props = { label?: string; url: string; Icon?: any };
 export const NAV_LINKS: Props[] = [
@@ -13,7 +14,7 @@ export const NAV_LINKS: Props[] = [
   {
     label: "Our-Story",
     url: "/our-story",
-    Icon: FaHistory,
+    Icon: FaBook,
   },
   {
     label: "RoadMap",
@@ -51,19 +52,17 @@ export const NOTES = [
   {
     title: "Real Innovation",
     text: "Embark on innovation with our pioneering crypto project, shaping the future of stablecoins on PulseChain. Powered by blockchain, we are redefining finance and beyond. Join the revolution!",
-    btnText: 'Explore',
+    btnText: "Explore",
   },
   {
     title: "No Admin Keys",
     text: "Aligned with Pulsechain's visionary founder, Richard Heart, our innovative stablecoin champions TRUE permissionless decentralization. The only other stablecoin to pDAI with no admin keys.",
-    btnText: 'Try',
-
+    btnText: "Try",
   },
   {
     title: "Pegging To $1",
     text: "Join us as we follow in the footsteps of pDAI's exponential growth (5000x in year 1), paving the way to stability with $pLUSD. Using innovative methods like algorithms and dynamic collateral, we're set to peg to $1.",
-    btnText: 'Explore',
-
+    btnText: "Explore",
   },
 ];
 
@@ -127,7 +126,6 @@ const elements = [
 ];
 
 export const timelineElements = elements.reverse();
-
 
 export const FAQ: {
   question: string;
@@ -207,5 +205,47 @@ export const FAQ: {
       //   "Building Confidence: We believe financial literacy is key. We offer resources and support to help you understand your finances.",
       // ],
     },
+  },
+];
+
+export const DASHBOARD_LINKS = [
+  {
+    title: "Users",
+    description: "View all users.",
+    Icon: Users,
+    href: "/admin/users",
+  },
+  {
+    title: "Posts",
+    description: "View all post.",
+    Icon: Newspaper,
+    href: "/admin/posts",
+  },
+];
+
+export const DUMMY_POSTS = [
+  {
+    imageUrl: "/assets/images/post.png",
+    title: "Post Title",
+    description: "Post description",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates minus dignissimos sapiente expedita, beatae natus fugiat ratione. Voluptatum quo perferendis harum accusamus? Odio enim incidunt hic voluptatum maxime, accusamus eaque quod laborum similique dignissimos! Voluptates itaque reprehenderit et nobis, rerum quisquam dolorem earum beatae consequatur aspernatur nihil labore, laudantium commodi.",
+    date: "10/05/24",
+    category: "Crypto",
+  },
+  {
+    imageUrl: "/assets/images/post.png",
+    title: "Post Title",
+    description: "Post description",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates minus dignissimos sapiente expedita, beatae natus fugiat ratione. Voluptatum quo perferendis harum accusamus? Odio enim incidunt hic voluptatum maxime, accusamus eaque quod laborum similique dignissimos! Voluptates itaque reprehenderit et nobis, rerum quisquam dolorem earum beatae consequatur aspernatur nihil labore, laudantium commodi.",
+    date: "10/05/24",
+    category: "Banking",
+  },
+  {
+    imageUrl: "/assets/images/post.png",
+    title: "Post Title",
+    description: "Post description",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates minus dignissimos sapiente expedita, beatae natus fugiat ratione. Voluptatum quo perferendis harum accusamus? Odio enim incidunt hic voluptatum maxime, accusamus eaque quod laborum similique dignissimos! Voluptates itaque reprehenderit et nobis, rerum quisquam dolorem earum beatae consequatur aspernatur nihil labore, laudantium commodi.",
+    date: "10/05/24",
+    category: "Investment",
   },
 ];

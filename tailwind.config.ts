@@ -23,6 +23,7 @@ const config = {
         inter: ["var(--font-inter)", ...fontFamily.sans],
         // inter: "var(--font-inter)",
       },
+      screens: {"mmd": "800px"},
       colors: {
         grad:{
           1: '#1967FE',

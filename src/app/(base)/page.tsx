@@ -14,11 +14,11 @@ export default function Home() {
         <Wrapper className="flex flex-col items-center h-auto justify-center">
 
 
-          <h1 className="text-5xl leading-[1.2] md:leading-[1.3] md:text-7xl lg:leading-[1] xl:text-8xl font-bold text-white text-center font-inter max-w-prose">
+          <h1 className="text-5xl leading-[1.2] md:leading-[1.3] md:text-7xl lg:leading-[1] xl:text-8xl font-bold text-white text-center font-inter max-w-prose tracking-tight">
             Liquity on Pulsechain.
           </h1>
           <br className="md:hidden"/>
-          <h1 className="text-2xl md:mt-6 lg:mt-8 md:text-4xl xl:text-5xl font-bold bg-gradient-to-tr from-grad-3/60 to-grad-1/80 bg-clip-text text-transparent text-center xl:leading-tight">
+          <h1 className="text-2xl md:mt-6 lg:mt-8 md:text-4xl xl:text-5xl font-bold bg-gradient-to-tr from-grad-3/60 to-grad-1/80 bg-clip-text text-transparent text-center xl:leading-tight tracking-tight">
             The King of pStables.
           </h1>
           <p className="text-sm md:text-lg lg:text-xl font-light text-muted-foreground mt-2 lg:mt-2">
