@@ -44,7 +44,7 @@ export default function Home() {
           <Separator />
           <h1 className="page-heading text-center">Learn More</h1>
           <div className="w-full h-auto flex justify-center">
-            <p className="p-text max-w-4xl text-center ">
+            <p className="p-text max-w-4xl md:text-center ">
               pLUSD is a cryptocurrency initiative that leverages the unique capabilities of the
               PulseChain network. This project is a fork of the original LUSD, redesigned to
               optimize performance within the PulseChain ecosystem, which is known for faster

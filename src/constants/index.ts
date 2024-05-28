@@ -1,6 +1,7 @@
 import { FaXTwitter, FaPeopleGroup, } from "react-icons/fa6";
 import { FaHome, FaHistory, FaBurn, FaBlog } from "react-icons/fa";
 import { RiRoadMapLine } from "react-icons/ri";
+import { LuLayoutDashboard } from "react-icons/lu";
 
 type Props = { label?: string; url: string; Icon?: any };
 export const NAV_LINKS: Props[] = [
@@ -35,9 +36,14 @@ export const NAV_LINKS: Props[] = [
     Icon: FaPeopleGroup,
   },
   {
-    label: "X",
+    label: "Twitter",
     url: "https://twitter.com",
     Icon: FaXTwitter,
+  },
+  {
+    label: "Dashboard",
+    url: "/admin",
+    Icon: LuLayoutDashboard,
   },
 ];
 
@@ -62,14 +68,6 @@ export const NOTES = [
 ];
 
 const elements = [
-  {
-    title: "Twitter Launch ",
-    location: "City1, State1",
-    description: "Completed my degree in Computer Science",
-    date: "2018",
-    icon: "school",
-    color: "blue",
-  },
   {
     title: "Twitter Launch ",
     location: "City1, State1",
