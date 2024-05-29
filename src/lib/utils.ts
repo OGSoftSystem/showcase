@@ -39,3 +39,5 @@ export function handleError(error: unknown) {
   }
   return message;
 }
+
+export const baseUrl='http:localhost:3000'

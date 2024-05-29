@@ -1,3 +1,4 @@
+import PageHeading from "@/components/shared/PageHeading";
 import Wrapper from "@/components/shared/Wrapper";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -16,8 +17,9 @@ import Link from "next/link";
 const AdminPage = () => {
   return (
     <section className="pt-20">
+      <PageHeading pageTitle="Dashboard" pageSubtitle="Perform Admin Functions" />
       <Wrapper>
-        <div className="size-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 space-x-6 my-20 ">
+        <div className="size-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 space-x-6 my-10 ">
           {DASHBOARD_LINKS.map((link) => {
             return (
               <Card key={link.title}>

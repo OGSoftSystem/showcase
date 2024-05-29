@@ -1,5 +1,7 @@
 import { Schema, model, Model, models } from "mongoose";
 import bcrypt from "bcrypt";
+import { IPost } from "./post.model";
+
 
 export interface IUser extends Document {
   username: string;
@@ -7,6 +9,8 @@ export interface IUser extends Document {
   password: string;
   role?: "user" | "admin";
   imageUrl?: string;
+  posts: IPost[];
+  about: string;
 }
 
 interface Methods {
@@ -19,6 +23,8 @@ const UserSchema = new Schema<IUser, {}, Methods>({
   password: { type: String, required: [true, "Password is required"] },
   role: { type: String, enum: ["user", "admin"], default: "user" },
   imageUrl: { type: String, required: false },
+  posts: [{type: Schema.Types.ObjectId, ref:'Post'}],
+  about: { type: String, default: "" },
 });
 
 UserSchema.pre("save", async function (next) {

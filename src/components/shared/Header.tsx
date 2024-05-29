@@ -3,15 +3,16 @@ import { AdminNavItems, NavItems } from "./NavItems";
 import { AdminMobileNav, MobileNav } from "./MobileNav";
 import Logo from "./Logo";
 import Admin from "./Admin";
-import { getSession } from "@/lib/actions/auth.actions";
+import { getSession, signOut } from "@/lib/actions/auth.actions";
 import { findUserById } from "@/lib/actions/user.actions";
-import { notFound } from "next/navigation";
 import { UserType } from "@/types";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 export async function Header() {
   const session = await getSession();
-  if (session.userId == undefined) return notFound();
-  const user: UserType = await findUserById(session.userId);
+  const user: UserType = await findUserById(session.userId as string);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -24,10 +25,10 @@ export async function Header() {
             <NavItems />
           </div>
 
-          <Admin className="hidden mmd:flex mmd:flex-col" user={user} />
+          <Pop user={user} isLoggedIn={session.isLoggedIn} />
 
-          <div className="mmd:hidden">
-            <MobileNav user={user} />
+          <div className="mmd:hidden ml-4">
+            <MobileNav />
           </div>
         </div>
       </Wrapper>
@@ -37,8 +38,7 @@ export async function Header() {
 
 export async function AdminHeader() {
   const session = await getSession();
-  if (session.userId == undefined) return notFound();
-  const user: UserType = await findUserById(session.userId);
+  const user: UserType = await findUserById(session.userId as string);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -51,13 +51,42 @@ export async function AdminHeader() {
             <AdminNavItems />
           </div>
 
-          <Admin className="hidden md:flex md:flex-col" user={user} />
+          <Pop user={user} isLoggedIn={session.isLoggedIn} />
 
-          <div className="md:hidden">
-            <AdminMobileNav user={user} />
+          <div className="md:hidden ml-4">
+            <AdminMobileNav />
           </div>
         </div>
       </Wrapper>
     </header>
+  );
+}
+
+function Pop({ user, isLoggedIn }: { user: UserType; isLoggedIn: boolean }) {
+  return (
+    <>
+      {isLoggedIn && user._id ? (
+        <Popover>
+          <PopoverTrigger>
+            <Admin />
+          </PopoverTrigger>
+          <PopoverContent className="w-fit bg-grad-2/20">
+            <form action={signOut}>
+              <Button type="submit" variant="ghost">
+                Sign out
+              </Button>
+            </form>
+          </PopoverContent>
+        </Popover>
+      ) : (
+        <Button
+          asChild
+          variant="ghost"
+          className="bg-grad-2/20 rounded-full text-sm text-white"
+        >
+          <Link href="/auth/sign-in">Sign in</Link>
+        </Button>
+      )}
+    </>
   );
 }

@@ -8,7 +8,7 @@ import {
   handleError,
   sessionOptions,
 } from "@/lib/utils";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import connectToDatabase from "../database/mongodb";
 import User from "../database/models/user.model";
 import { SignInSchema, SignInType } from "../validation";
@@ -46,6 +46,9 @@ export const signIn = async ({ email, password }: SignInType) => {
 
     const isMatch = await user.comparePassword(password);
     if (!isMatch) throw new Error("Wrong credentials");
+
+    const isAdmin = user.role === process.env.USER_CHECK;
+    if (isAdmin == false) throw Error("403: Not Permitted.");
 
     session.isLoggedIn = true;
 

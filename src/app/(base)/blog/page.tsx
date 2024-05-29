@@ -11,7 +11,6 @@ const BlogPage = () => {
   return (
     <section className="mt-10 lg:mt-20">
       <Wrapper className="py-20">
-        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full items-center">
           <div className="relative w-[20rem] h-[20rem] md:w-[18rem] lg:w-[30rem] lg:h-[30rem] col-span-1">
             <Image
@@ -48,12 +47,15 @@ const BlogPage = () => {
 
       <Separator />
       <Wrapper id="posts" className="my-20">
-        <h1>POSTS</h1>
+        <h1 className="text-xl text-muted-foreground font-bold">POSTS</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-8 space-y-6 md:space-y-0 mt-4 mb-8 items-center justify-center">
           <Suspense
             fallback={
               <>
+                <PostSkeleton />
+                <PostSkeleton />
+                <PostSkeleton />
                 <PostSkeleton />
                 <PostSkeleton />
                 <PostSkeleton />
@@ -77,11 +79,11 @@ async function RenderPostThumbnails() {
     return (
       <PostThumbnail
         key={i}
-        postId=""
+        postId={post.postId}
         imageUrl={post.imageUrl}
         title={post.title}
         date={post.date}
-        description={post.description}
+        subtitle={post.subtitle}
         category={post.category}
       />
     );

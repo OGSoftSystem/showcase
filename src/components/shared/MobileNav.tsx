@@ -1,5 +1,3 @@
-"use client";
-
 import { CiMenuKebab } from "react-icons/ci";
 import {
   Sheet,
@@ -10,16 +8,11 @@ import {
 } from "../ui/sheet";
 import { NAV_LINKS } from "../../constants";
 import Logo from "./Logo";
-import Admin from "./Admin";
 import { NavLink } from "./NavItems";
-import { UserType } from "@/types";
-import { useState } from "react";
 
-export const MobileNav = ({ user }: { user: UserType }) => {
-  const [open, setOpen] = useState(false);
-
+export const MobileNav = () => {
   return (
-    <Sheet onOpenChange={() => setOpen(!open)} open={open}>
+    <Sheet>
       <SheetTrigger>
         <SheetHeader>
           <CiMenuKebab />
@@ -27,7 +20,7 @@ export const MobileNav = ({ user }: { user: UserType }) => {
       </SheetTrigger>
       <SheetContent>
         <nav className="flex flex-col justify-between h-full mmd:hidden">
-          <div className="flex flex-col space-y-6 mt-20">
+          <div className="flex flex-col space-y-4 mt-10">
             {NAV_LINKS.map((link) => (
               <SheetClose key={link.label} asChild>
                 <NavLink href={link.url}>
@@ -43,15 +36,9 @@ export const MobileNav = ({ user }: { user: UserType }) => {
             ))}
           </div>
 
-          <div className="space-x-4 flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Logo width={30} height={30} className="md:hidden" />
-              <p className="text-sm uppercase">Company name</p>
-            </div>
-
-            <div onClick={() => setOpen((p) => !p)}>
-              <Admin className="flex flex-col items-center" user={user} />
-            </div>
+          <div className="flex items-center space-x-2">
+            <Logo width={30} height={30} />
+            <p className="text-sm uppercase">Company name</p>
           </div>
         </nav>
       </SheetContent>
@@ -59,12 +46,9 @@ export const MobileNav = ({ user }: { user: UserType }) => {
   );
 };
 
-
-export const AdminMobileNav = ({ user }: { user: UserType }) => {
-  const [open, setOpen] = useState(false);
-
+export const AdminMobileNav = () => {
   return (
-    <Sheet onOpenChange={() => setOpen(!open)} open={open}>
+    <Sheet>
       <SheetTrigger>
         <SheetHeader>
           <CiMenuKebab />
@@ -73,7 +57,7 @@ export const AdminMobileNav = ({ user }: { user: UserType }) => {
       <SheetContent>
         <nav className="flex flex-col justify-between h-full md:hidden">
           <div className="flex flex-col space-y-6 mt-20">
-            {NAV_LINKS.slice(0,1).map((link) => (
+            {NAV_LINKS.slice(0, 1).map((link) => (
               <SheetClose key={link.label} asChild>
                 <NavLink href={link.url}>
                   <div className="flex space-x-4 items-center">
@@ -88,19 +72,12 @@ export const AdminMobileNav = ({ user }: { user: UserType }) => {
             ))}
           </div>
 
-          <div className="space-x-4 flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Logo width={30} height={30} className="md:hidden" />
-              <p className="text-sm uppercase">Company name</p>
-            </div>
-
-            <div onClick={() => setOpen((p) => !p)}>
-              <Admin className="flex flex-col items-center" user={user} />
-            </div>
+          <div className="flex items-center space-x-2">
+            <Logo width={30} height={30} className="md:hidden" />
+            <p className="text-sm uppercase">Company name</p>
           </div>
         </nav>
       </SheetContent>
     </Sheet>
   );
 };
-

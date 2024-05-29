@@ -39,12 +39,11 @@ const AuthForm = ({ type }: AuthFormType) => {
   const [imgUrl, setImgUrl] = useState("");
 
   const initialValue = {
-    username:'',
-    email:'',
-    password:'',
-    imageUrl:'',
-
-  }
+    username: "",
+    email: "",
+    password: "",
+    imageUrl: "",
+  };
 
   const form = useForm<CreateUserType | SignInType>({
     resolver: zodResolver(SIGN_UP ? CreateUserSchema : SignInSchema),
@@ -196,7 +195,12 @@ const AuthForm = ({ type }: AuthFormType) => {
         </div>
 
         <div className="flex flex-col gap-2 w-full items-center">
-          <Button type="submit" className="form-btn" size="lg">
+          <Button
+            disabled={form.formState.isSubmitting}
+            type="submit"
+            className="form-btn"
+            size="lg"
+          >
             {SIGN_UP ? "sign up" : "sign in"}
 
             {form.formState.isSubmitting && <Spinner />}
