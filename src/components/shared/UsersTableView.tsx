@@ -7,7 +7,6 @@ import {
   TableRow,
 } from "../ui/table";
 import Image from "next/image";
-import { baseUrl } from "@/lib/utils";
 import { LuMoreVertical } from "react-icons/lu";
 import { MdOutlineVerified } from "react-icons/md";
 import { GoUnverified } from "react-icons/go";
@@ -60,7 +59,7 @@ const UsersTableView = ({ users }: { users: any[] }) => {
                     <Image
                       src={
                         user.imageUrl
-                          ? `${baseUrl}${user.imageUrl}`
+                          ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v1717120816/${user.imageUrl}`
                           : "/assets/images/mela.png"
                       }
                       fill

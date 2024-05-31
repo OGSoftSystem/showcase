@@ -4,7 +4,6 @@ import Wrapper from "@/components/shared/Wrapper";
 import { Button } from "@/components/ui/button";
 import { findAllPost } from "@/lib/actions/post.actions";
 import { cache } from "@/lib/cache";
-import { PostType } from "@/types";
 import Link from "next/link";
 import { Suspense } from "react";
 
