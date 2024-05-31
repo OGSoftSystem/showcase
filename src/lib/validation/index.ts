@@ -23,22 +23,62 @@ export const CreateUserSchema = z.object({
 });
 export type CreateUserType = z.infer<typeof CreateUserSchema>;
 
-
 // UPDATE USER
 export const UpdateUserSchema = z.object({
-  firstName: z.string().min(4, {
-    message: "not less than 4 character short",
-  }),
-  lastName: z.string().min(4, {
-    message: "not less than 4 character short",
-  }),
-  email: z.string().email().min(4, {
-    message: "not less than 4 character short",
-  }),
-  phone: z.string().min(6, {
-    message: "not less than 6 character short",
-  }),
-
+  username: z
+    .string()
+    .min(4, { message: "password should be at least 4 character long" }),
+  email: z
+    .string()
+    .email()
+    .min(2, { message: "password should be at least 2 character long" }),
+  password: z
+    .string()
+    .min(6, { message: "password should be at least 6 character long" }),
   imageUrl: z.any(),
 });
 export type UpdateUserType = z.infer<typeof UpdateUserSchema>;
+
+
+// Post
+export const CreatePostSchema = z.object({
+  title: z
+    .string()
+    .min(4, { message: "Title should be at least 4 character long" }),
+  subtitle: z
+    .string()
+    .min(2, { message: "Subtitle should be at least 2 character long" }),
+  body: z
+    .string()
+    .min(6, { message: "Body should be at least 6 character long" }),
+  imageUrl: z.any(),
+  author: z
+    .string()
+    .min(2, { message: "Author should be at least 2 character long" }),
+  category: z
+    .string()
+    .min(2, { message: "password should be at least 2 character long" }),
+});
+export type CreatePostType = z.infer<typeof CreatePostSchema>;
+
+// UPDATE POST
+export const UpdatePostSchema = z.object({
+  title: z
+    .string()
+    .min(4, { message: "body should be at least 4 character long" }),
+  author: z
+    .string()
+    .min(2, { message: "password should be at least 2 character long" }),
+  body: z
+    .string()
+    .min(6, { message: "password should be at least 6 character long" }),
+  imageUrl: z.any(),
+  subtitle: z
+    .string()
+    .min(2, { message: "password should be at least 2 character long" }),
+
+  category: z
+    .string()
+    .min(2, { message: "password should be at least 2 character long" }),
+});
+export type UpdatePostType = z.infer<typeof UpdatePostSchema>;

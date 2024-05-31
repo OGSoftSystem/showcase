@@ -53,7 +53,10 @@ export const signIn = async ({ email, password }: SignInType) => {
     session.isLoggedIn = true;
 
     session.userId = user._id.toString();
+    session.username = user.username;
     await session.save();
+
+    console.log("Login successful");
   } catch (error) {
     return {
       error: handleError(error),

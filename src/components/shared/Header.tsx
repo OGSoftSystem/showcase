@@ -5,10 +5,11 @@ import Logo from "./Logo";
 import Admin from "./Admin";
 import { getSession, signOut } from "@/lib/actions/auth.actions";
 import { findUserById } from "@/lib/actions/user.actions";
-import { UserType } from "@/types";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 import Link from "next/link";
+import { signIn } from "../../../auth";
+import { FaGoogle } from "react-icons/fa6";
 
 export async function Header() {
   const session = await getSession();
@@ -64,29 +65,54 @@ export async function AdminHeader() {
 
 function Pop({ user, isLoggedIn }: { user: UserType; isLoggedIn: boolean }) {
   return (
-    <>
-      {isLoggedIn && user._id ? (
-        <Popover>
-          <PopoverTrigger>
-            <Admin />
-          </PopoverTrigger>
-          <PopoverContent className="w-fit bg-grad-2/20">
-            <form action={signOut}>
-              <Button type="submit" variant="ghost">
-                Sign out
-              </Button>
-            </form>
-          </PopoverContent>
-        </Popover>
-      ) : (
-        <Button
-          asChild
-          variant="ghost"
-          className="bg-grad-2/20 rounded-full text-sm text-white"
+    <div className="flex items-center space-x-2">
+      <>
+        {isLoggedIn && user._id ? (
+          <Popover>
+            <PopoverTrigger>
+              <Admin />
+            </PopoverTrigger>
+            <PopoverContent className="w-fit flex flex-col items-center bg-grad-2/20">
+              <form action={signOut}>
+                <Button type="submit" variant="ghost">
+                  Sign out
+                </Button>
+              </form>
+              <Link
+                href="/"
+                className={`text-xs ${buttonVariants({ variant: "ghost" })}`}
+              >
+                Edit Profile
+              </Link>
+            </PopoverContent>
+          </Popover>
+        ) : (
+          <Button
+            asChild
+            variant="ghost"
+            className="bg-grad-2/20 rounded-full text-xs  text-white"
+          >
+            <Link href="/auth/sign-in">Sign in</Link>
+          </Button>
+        )}
+      </>
+
+      <>
+        <form
+          action={async () => {
+            "use server";
+            await signIn("google");
+          }}
         >
-          <Link href="/auth/sign-in">Sign in</Link>
-        </Button>
-      )}
-    </>
+          <Button
+            type="submit"
+            variant="ghost"
+            className="size-10 rounded-full bg-grad-1/30"
+          >
+            <FaGoogle />
+          </Button>
+        </form>
+      </>
+    </div>
   );
 }

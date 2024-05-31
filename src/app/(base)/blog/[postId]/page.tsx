@@ -1,15 +1,23 @@
 import SocialShare from "@/components/shared/SocialShare";
 import Wrapper from "@/components/shared/Wrapper";
 import Image from "next/image";
-import { DUMMY_POSTS } from "@/constants";
 import { Separator } from "@/components/ui/separator";
+import { findPostById } from "@/lib/actions/post.actions";
+import { formatDateTime, imgBaseUrl } from "@/lib/utils";
+// import PageHeading from "@/components/shared/PageHeading";
 
-const PostPage = ({ params: { postId } }: { params: { postId: string } }) => {
-  const currentPost = DUMMY_POSTS.find((post) => post.postId === postId);
+const PostPage = async ({
+  params: { postId },
+}: {
+  params: { postId: string };
+}) => {
+  const post = await findPostById(postId);
+  const date = formatDateTime(new Date(post.date));
 
   return (
-    <section className="pt-10 md:mt-20 ">
-      <Wrapper className="flex relative w-full h-screen overflow-hidden">
+    <section className="pt-20">
+      {/* <PageHeading pageTitle="Post" pageSubtitle="Latest post." /> */}
+      <Wrapper className="md:my-20 flex relative w-full h-screen overflow-hidden">
         {/* Left */}
         <div className="hidden flex-[0.4] sticky top-0 overflow-y-scroll h-[calc(100vh-50px)] pt-4 lg:flex justify-center">
           <div className="flex flex-col items-center space-y-2">
@@ -17,13 +25,13 @@ const PostPage = ({ params: { postId } }: { params: { postId: string } }) => {
               <Image
                 src="/assets/images/mela.png"
                 fill
-                alt={currentPost?.author!}
+                alt={post?.author!}
                 className="object-cover"
               />
             </div>
 
             <>
-              <p className="text-center">Author: {currentPost?.author}</p>
+              <p className="text-center">Author: {post?.author}</p>
               <p className="text-sm text-muted-foreground">
                 About author info to be displayed here.
               </p>
@@ -33,9 +41,9 @@ const PostPage = ({ params: { postId } }: { params: { postId: string } }) => {
 
         {/* Middle */}
         <div className="flex-1 px-4 overflow-y-auto">
-          <div className="relative w-full h-[20rem] mb-4 ">
+          <div className="relative aspect-video md:w-full md:h-[23rem] mb-4 ">
             <Image
-              src={currentPost?.imageUrl!}
+              src={`${imgBaseUrl}${post.imageUrl}`}
               fill
               priority
               alt="banner"
@@ -44,28 +52,24 @@ const PostPage = ({ params: { postId } }: { params: { postId: string } }) => {
           </div>
 
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold capitalize">
-              {currentPost?.title}
-            </h2>
-            <p className="lg:hidden">{currentPost?.author}</p>
+            <h2 className="text-xl font-bold capitalize">{post?.title}</h2>
+            <p className="text-muted-foreground font-light">{post?.author}</p>
           </div>
-          <div className="text-lg font-light">{currentPost?.subtitle}</div>
+          <div className="text-lg font-light capitalize">{post?.subtitle}</div>
           <div className="flex items-center justify-between mt-2">
             <div className="text-xs text-muted-foreground">
-              {currentPost?.category}
+              {post?.category}
             </div>
-            <div className="text-xs text-muted-foreground">
-              {currentPost?.date}
-            </div>
+            <div className="text-xs text-muted-foreground">{date}</div>
           </div>
-          <div className="p-text my-4">{currentPost?.body}</div>
+          <div className="p-text my-4">{post?.body}</div>
 
           <div className="w-full my-4 lg:hidden">
             <SocialShare
               className="flex space-x-4"
               postId={postId}
-              title={currentPost?.title!}
-              body={currentPost?.body!}
+              title={post?.title!}
+              body={post?.body!}
             />
           </div>
 
@@ -81,8 +85,8 @@ const PostPage = ({ params: { postId } }: { params: { postId: string } }) => {
           <SocialShare
             className="flex flex-col space-y-4"
             postId={postId}
-            title={currentPost?.title!}
-            body={currentPost?.body!}
+            title={post?.title!}
+            body={post?.body!}
           />
         </div>
       </Wrapper>

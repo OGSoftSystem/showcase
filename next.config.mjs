@@ -6,6 +6,13 @@ const nextConfig = {
         protocol: "https",
         hostname: "crapforcrypto.com",
       },
+
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };

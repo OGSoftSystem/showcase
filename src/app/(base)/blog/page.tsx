@@ -3,9 +3,9 @@ import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import { DUMMY_POSTS } from "@/constants";
 import PostThumbnail, { PostSkeleton } from "@/components/shared/PostThumbnail";
 import { Suspense } from "react";
+import { findAllPost } from "@/lib/actions/post.actions";
 
 const BlogPage = () => {
   return (
@@ -73,18 +73,19 @@ const BlogPage = () => {
 export default BlogPage;
 
 async function RenderPostThumbnails() {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
+  const posts: PostType[] = await findAllPost();
 
-  return DUMMY_POSTS.map((post, i: number) => {
+  return posts.map((post) => {
     return (
       <PostThumbnail
-        key={i}
-        postId={post.postId}
+        key={post._id}
+        postId={post._id}
         imageUrl={post.imageUrl}
         title={post.title}
         date={post.date}
         subtitle={post.subtitle}
         category={post.category}
+        author={post.author}
       />
     );
   });

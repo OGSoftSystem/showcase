@@ -40,4 +40,15 @@ export function handleError(error: unknown) {
   return message;
 }
 
-export const baseUrl='http:localhost:3000'
+export const imgBaseUrl = process.env.IMAGE_URL;
+
+export const formatDateTime = (date: Date) => {
+  const formattedDate = new Intl.DateTimeFormat("en-Us", {
+    dateStyle: "short",
+    timeStyle: "short",
+    // timeZone: "GMT+1",
+    // timeZoneName: "short",
+  }).format(date);
+
+  return formattedDate;
+};

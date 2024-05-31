@@ -13,13 +13,16 @@ import { DASHBOARD_LINKS } from "@/constants";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-
 const AdminPage = () => {
   return (
     <section className="pt-20">
-      <PageHeading pageTitle="Dashboard" pageSubtitle="Perform Admin Functions" />
       <Wrapper>
-        <div className="size-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 space-x-6 my-10 ">
+        <PageHeading
+          pageTitle="Dashboard"
+          pageSubtitle="Perform Admin Functions"
+        />
+        
+        <div className="size-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 my-10 gap-6">
           {DASHBOARD_LINKS.map((link) => {
             return (
               <Card key={link.title}>

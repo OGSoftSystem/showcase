@@ -12,6 +12,7 @@ type Props = {
   setImgUrl: Dispatch<SetStateAction<string>>;
   imgUrl: string;
 };
+
 const ImageUploader = ({
   publicId,
   onValueChange,
@@ -33,7 +34,7 @@ const ImageUploader = ({
   const onUploadError = () => {
     toast({
       title: "Upload Error",
-      description: "Failed to upload receipt please try again",
+      description: "Failed to upload image please try again",
       variant: "destructive",
     });
   };
@@ -57,7 +58,7 @@ const ImageUploader = ({
                   src={imgUrl}
                   width={imgConfig.width}
                   height={imgConfig.height}
-                  alt="user"
+                  alt="post_banner"
                   className="aspect-video mt-4 object-cover"
                 />
               ) : (

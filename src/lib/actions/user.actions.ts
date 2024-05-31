@@ -5,6 +5,7 @@ import User, { IUser } from "../database/models/user.model";
 import connectToDatabase from "../database/mongodb";
 import { handleError } from "../utils";
 import { notFound } from "next/navigation";
+import Post from "../database/models/post.model";
 
 export const createUser = async (user: IUser) => {
   try {
@@ -20,10 +21,12 @@ export const createUser = async (user: IUser) => {
 };
 
 export const findUserById = async (userId: string) => {
+
   try {
     await connectToDatabase();
     const user = await User.findById(userId);
     if (user == null) return notFound();
+    
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
     return { error: handleError(error) };
@@ -35,7 +38,7 @@ export const findUserPost = async (userId: string) => {
     await connectToDatabase();
     const posts = await User.findById(userId).populate({
       path: "posts",
-      model: "Post",
+      model: Post,
     });
     if (posts == null) return notFound();
     return JSON.parse(JSON.stringify(posts));
@@ -54,6 +57,7 @@ export const findAllUsers = async () => {
     return { error: handleError(error) };
   }
 };
+
 export const deleteUser = async (userId: string) => {
   try {
     await connectToDatabase();
@@ -65,6 +69,7 @@ export const deleteUser = async (userId: string) => {
     return { error: handleError(error) };
   }
 };
+
 export const toggleVerification = async (userId: string) => {
   try {
     await connectToDatabase();
