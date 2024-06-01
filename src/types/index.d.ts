@@ -12,7 +12,7 @@ declare type PostType = {
   title: string;
   subtitle: string;
   body: string;
-  author?: string;
+  author: string;
   date: Date;
   published?: boolean;
   category: string;
