@@ -1,16 +1,15 @@
 import { Schema, model, Model, models } from "mongoose";
 import bcrypt from "bcrypt";
-import { IPost } from "./post.model";
-
 
 export interface IUser extends Document {
-  username: string;
   email: string;
+  name: string;
+  imageUrl: string;
   password: string;
-  role?: "user" | "admin";
-  imageUrl?: string;
-  posts: IPost[];
-  about: string;
+  role: "user" | "admin";
+  posts?: PostType[];
+  about?: string;
+  coverPicture: string;
 }
 
 interface Methods {
@@ -18,13 +17,14 @@ interface Methods {
 }
 
 const UserSchema = new Schema<IUser, {}, Methods>({
-  username: { type: String, required: [true, "Username is required"] },
-  email: { type: String, required: [true, "Email is required"] },
-  password: { type: String, required: [true, "Password is required"] },
+  name: { type: String, required: [true, "Name is required."] },
+  email: { type: String, required: [true, "Email is required."], unique: true },
+  password: { type: String, required: [true, "Password is required."] },
   role: { type: String, enum: ["user", "admin"], default: "user" },
   imageUrl: { type: String, required: false },
-  posts: [{type: Schema.Types.ObjectId, ref:'Post'}],
+  posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
   about: { type: String, default: "" },
+  coverPicture: { type: String },
 });
 
 UserSchema.pre("save", async function (next) {

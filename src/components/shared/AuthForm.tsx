@@ -21,12 +21,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/user.actions";
 import Spinner from "./Spinner";
-import { signIn } from "@/lib/actions/auth.actions";
+// import { signIn } from "@/lib/actions/auth.actions";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { toast } from "../ui/use-toast";
 import { IUser } from "@/lib/database/models/user.model";
 import ImageUploader from "./ImageUploader";
+import { signIn } from "next-auth/react";
 
 type AuthFormType = {
   type: "SignIn" | "SignUp";
@@ -39,7 +40,7 @@ const AuthForm = ({ type }: AuthFormType) => {
   const [imgUrl, setImgUrl] = useState("");
 
   const initialValue = {
-    username: "",
+    name: "",
     email: "",
     password: "",
     imageUrl: "",
@@ -71,10 +72,11 @@ const AuthForm = ({ type }: AuthFormType) => {
       }
     } else {
       try {
-        const user = await signIn({
+        const user = await signIn('credentials',{
           email: data.email,
           password: data.password,
-        } as SignInType);
+          redirect: false
+        } );
 
         if (user?.error) {
           toast({
@@ -122,7 +124,7 @@ const AuthForm = ({ type }: AuthFormType) => {
 
             <div className="py-1">
               <FormField
-                name="username"
+                name="name"
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
@@ -201,7 +203,7 @@ const AuthForm = ({ type }: AuthFormType) => {
             className="form-btn"
             size="lg"
           >
-            {SIGN_UP ? "sign up" : "sign in"}
+            {SIGN_UP ? "sign up" : "sign in with credentials"}
 
             {form.formState.isSubmitting && <Spinner />}
           </Button>

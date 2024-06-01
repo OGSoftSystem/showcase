@@ -21,18 +21,18 @@ import { notFound } from "next/navigation";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { IUser } from "@/lib/database/models/user.model";
+import { imgBaseUrl } from "@/lib/utils";
 
-const UsersTableView = ({ users }: { users: any[] }) => {
+const UsersTableView = ({ users }: { users: UserType[] }) => {
   if (users.length <= 0) return notFound();
 
+
   return (
-    
-      
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead>S/N</TableHead>
-            <TableHead>Username</TableHead>
+            <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Role</TableHead>
             <TableHead>Image</TableHead>
@@ -49,18 +49,18 @@ const UsersTableView = ({ users }: { users: any[] }) => {
           {users.map((user, i) => {
             let sn = i + 1;
             return (
-              <TableRow key={user.username}>
+              <TableRow key={user.name}>
                 <TableCell>{sn}</TableCell>
-                <TableCell>{user.username}</TableCell>
+                <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.role}</TableCell>
                 <TableCell>
                   <div className="size-10 border border-grad-1/20 overflow-hidden rounded-full relative">
                     <Image
                       src={
-                        user.imageUrl
+                        user.imageUrl?.includes('Liquity')
                           ? `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v1717120816/${user.imageUrl}`
-                          : "/assets/images/mela.png"
+                          : user.imageUrl as string
                       }
                       fill
                       alt="user"

@@ -8,12 +8,12 @@ export function cn(...inputs: ClassValue[]) {
 
 export interface SessionData {
   userId?: string;
-  username?: string;
+  name?: string;
 
   isLoggedIn: boolean;
 }
 export const defaultSession: SessionData = {
-  username: "",
+  name: "",
   isLoggedIn: false,
 };
 export const sessionOptions: SessionOptions = {

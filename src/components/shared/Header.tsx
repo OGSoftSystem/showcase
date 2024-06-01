@@ -3,17 +3,16 @@ import { AdminNavItems, NavItems } from "./NavItems";
 import { AdminMobileNav, MobileNav } from "./MobileNav";
 import Logo from "./Logo";
 import Admin from "./Admin";
-import { getSession, signOut } from "@/lib/actions/auth.actions";
 import { findUserById } from "@/lib/actions/user.actions";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button, buttonVariants } from "../ui/button";
 import Link from "next/link";
-import { signIn } from "../../../auth";
-import { FaGoogle } from "react-icons/fa6";
+import { auth } from "@/auth";
+import { handleSignOut } from "@/lib/actions/nextAuth5.actions";
 
 export async function Header() {
-  const session = await getSession();
-  const user: UserType = await findUserById(session.userId as string);
+  const session = await auth();
+  const user: UserType = await findUserById(session?.user.id as string);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -26,7 +25,7 @@ export async function Header() {
             <NavItems />
           </div>
 
-          <Pop user={user} isLoggedIn={session.isLoggedIn} />
+          <Pop user={user} />
 
           <div className="mmd:hidden ml-4">
             <MobileNav />
@@ -38,8 +37,8 @@ export async function Header() {
 }
 
 export async function AdminHeader() {
-  const session = await getSession();
-  const user: UserType = await findUserById(session.userId as string);
+  const session = await auth();
+  const user: UserType = await findUserById(session?.user.id as string);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -52,7 +51,7 @@ export async function AdminHeader() {
             <AdminNavItems />
           </div>
 
-          <Pop user={user} isLoggedIn={session.isLoggedIn} />
+          <Pop user={user} />
 
           <div className="md:hidden ml-4">
             <AdminMobileNav />
@@ -63,55 +62,45 @@ export async function AdminHeader() {
   );
 }
 
-function Pop({ user, isLoggedIn }: { user: UserType; isLoggedIn: boolean }) {
+function Pop({ user }: { user: UserType }) {
   return (
     <div className="flex items-center space-x-2">
       <>
-        {isLoggedIn && user._id ? (
+        {user._id ? (
           <Popover>
             <PopoverTrigger>
-              <Admin />
+              <Admin user={user} />
             </PopoverTrigger>
-            <PopoverContent className="w-fit flex flex-col items-center bg-grad-2/20">
-              <form action={signOut}>
-                <Button type="submit" variant="ghost">
+            <PopoverContent className="w-fit flex flex-col items-center bg-grad-2/20 gap-2">
+              <form action={handleSignOut}>
+                <Button
+                  type="submit"
+                  variant="ghost"
+                  className="w-20 bg-grad-2/20 rounded-full text-xs text-white"
+                >
                   Sign out
                 </Button>
               </form>
-              <Link
-                href="/"
-                className={`text-xs ${buttonVariants({ variant: "ghost" })}`}
+
+              <Button
+                asChild
+                type="submit"
+                variant="ghost"
+                className="w-20 bg-grad-2/20 rounded-full text-xs text-white"
               >
-                Edit Profile
-              </Link>
+                <Link href="/">Profile</Link>
+              </Button>
             </PopoverContent>
           </Popover>
         ) : (
           <Button
             asChild
             variant="ghost"
-            className="bg-grad-2/20 rounded-full text-xs  text-white"
+            className="bg-grad-2/20 rounded-full text-xs text-white"
           >
             <Link href="/auth/sign-in">Sign in</Link>
           </Button>
         )}
-      </>
-
-      <>
-        <form
-          action={async () => {
-            "use server";
-            await signIn("google");
-          }}
-        >
-          <Button
-            type="submit"
-            variant="ghost"
-            className="size-10 rounded-full bg-grad-1/30"
-          >
-            <FaGoogle />
-          </Button>
-        </form>
       </>
     </div>
   );

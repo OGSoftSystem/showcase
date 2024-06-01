@@ -13,13 +13,14 @@ const getUsers = cache(
   () => {
     return findAllUsers();
   },
-  ["/dashboard/users", "getUsers"],
+  ["getUsers"],
   { revalidate: 60 * 60 * 24 }
 );
 
 const UsersPage = async () => {
-  const users = await getUsers();
+  const users: UserType[] = await getUsers();
   if (users == null) return notFound();
+
 
   return (
     <section className="mt-10 lg:mt-20">

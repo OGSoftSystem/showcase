@@ -3,6 +3,7 @@ import { Inter, Chakra_Petch, Rajdhani, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
+import Provider from "@/components/shared/Provider";
 
 // const chakra = Chakra_Petch({
 //   subsets: ["latin"],
@@ -38,7 +39,7 @@ export default function RootLayout({
           inter.variable
         )}
       >
-        {children}
+        <Provider>{children}</Provider>
         <Toaster />
       </body>
     </html>

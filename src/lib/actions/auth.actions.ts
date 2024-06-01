@@ -18,7 +18,7 @@ export const getSession = async () => {
 
   if (!session) throw new Error("No logged in user");
   if (!session.isLoggedIn) {
-    session.username = defaultSession.username;
+    session.name = defaultSession.name;
     session.isLoggedIn = defaultSession.isLoggedIn;
   }
 
@@ -53,7 +53,7 @@ export const signIn = async ({ email, password }: SignInType) => {
     session.isLoggedIn = true;
 
     session.userId = user._id.toString();
-    session.username = user.username;
+    session.name = user.name;
     await session.save();
 
     console.log("Login successful");

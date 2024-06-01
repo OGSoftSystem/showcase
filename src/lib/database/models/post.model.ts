@@ -8,6 +8,7 @@ const PostSchema = new Schema({
   imageUrl: { type: String, required: true },
   author: { type: String, required: true },
   category: { type: String },
+  published: { type: Boolean, default: false },
   date: { type: Date, default: Date.now },
   createdAt: { type: Date, default: Date.now },
   updateAt: { type: Date, default: Date.now },

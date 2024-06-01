@@ -1,11 +1,10 @@
-
 declare type UserType = {
-  _id: string;
-  username: string;
+  name: string;
   email: string;
+  imageUrl?: string;
+  _id: string;
   // password: string;
   role?: string;
-  imageUrl?: string;
 };
 
 declare type PostType = {
@@ -13,8 +12,9 @@ declare type PostType = {
   title: string;
   subtitle: string;
   body: string;
-  author: string;
+  author?: string;
   date: Date;
+  published?: boolean;
   category: string;
-  imageUrl?: any;
+  imageUrl: any;
 };

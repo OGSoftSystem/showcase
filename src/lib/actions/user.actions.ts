@@ -7,12 +7,13 @@ import { handleError } from "../utils";
 import { notFound } from "next/navigation";
 import Post from "../database/models/post.model";
 
+
 export const createUser = async (user: IUser) => {
   try {
     await connectToDatabase();
 
     const newUser = await User.create(user);
-    if (newUser) revalidatePath("/dashboard");
+    if (newUser) revalidatePath("/admin/users");
   } catch (error) {
     return {
       error: handleError(error),
