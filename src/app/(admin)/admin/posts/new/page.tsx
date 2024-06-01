@@ -1,12 +1,12 @@
 import Wrapper from "@/components/shared/Wrapper";
 import PostForm from "../../_components/PostForm";
 import PageHeading from "@/components/shared/PageHeading";
-import { getSession } from "@/lib/actions/auth.actions";
 import { findUserById } from "@/lib/actions/user.actions";
+import { auth } from "@/auth";
 
 export default async function NewPostPage() {
-  const session = await getSession();
-  const user = await findUserById(session.userId!);
+  const session = await auth();
+  const user = await findUserById(session?.user.id as string);
 
   return (
     <section className="my-20">

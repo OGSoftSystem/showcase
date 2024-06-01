@@ -4,7 +4,6 @@ import Wrapper from "@/components/shared/Wrapper";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { NOTES } from "@/constants";
-import { getSession } from "@/lib/actions/auth.actions";
 import Image from "next/image";
 import Link from "next/link";
 

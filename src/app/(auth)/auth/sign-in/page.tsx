@@ -1,17 +1,16 @@
 import { redirect } from "next/navigation";
 import AuthForm from "@/components/shared/AuthForm";
-import { getSession } from "@/lib/actions/auth.actions";
 import Wrapper from "@/components/shared/Wrapper";
 import Logo from "@/components/shared/Logo";
-import { signIn } from "@/auth";
+import { auth, signIn } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { FaGoogle } from "react-icons/fa6";
 import { signInWithGoogle } from "@/lib/actions/nextAuth5.actions";
 
 const SignIn = async () => {
-  const session = await getSession();
+  const session = await auth();
 
-  if (session.isLoggedIn) redirect("/");
+  if (session?.user !== undefined) redirect("/");
   return (
     <section className="w-full">
       <Wrapper className="max-w-5xl">

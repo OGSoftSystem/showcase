@@ -1,15 +1,15 @@
 import Wrapper from "@/components/shared/Wrapper";
 import PageHeading from "@/components/shared/PageHeading";
-import { getSession } from "@/lib/actions/auth.actions";
 import PostForm from "../../../_components/PostForm";
 import { findPostById } from "@/lib/actions/post.actions";
+import { auth } from "@/auth";
 
 const EditPostPage = async ({
   params: { postId },
 }: {
   params: { postId: string };
 }) => {
-  const session = await getSession();
+  const session = await auth();
 
   const post: PostType = await findPostById(postId);
   return (
@@ -22,7 +22,7 @@ const EditPostPage = async ({
         <div className="w-full flex justify-center my-20">
           <PostForm
             type="Create"
-            sessionUser={session?.username!}
+            sessionUser={session?.user.name as string}
             post={post}
           />
         </div>
