@@ -2,6 +2,7 @@ import { formatDateTime, imgBaseUrl } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { Pencil } from "lucide-react";
+import { auth } from "@/auth";
 
 type Props = {
   postId: string;
@@ -13,7 +14,7 @@ type Props = {
   author: string;
 };
 
-const PostThumbnail = ({
+const PostThumbnail = async ({
   postId,
   imageUrl,
   title,
@@ -24,9 +25,10 @@ const PostThumbnail = ({
 }: Props) => {
   const createdAt = formatDateTime(new Date(date));
 
+  const session = await auth();
+
   return (
     <div className="w-full md:w-[300px] h-auto hover:bg-grad-1/10 ease-in duration-300 relative">
-
       <Link href={`/blog/${postId}`}>
         <div className="relative w-full md:w-[300px] h-[150px] overflow-hidden">
           <Image src={`${imgBaseUrl}${imageUrl}`} fill alt="post_banner" />
@@ -44,12 +46,14 @@ const PostThumbnail = ({
         <p className="p-text">{subtitle}</p>
       </Link>
 
-      <Link
-        href={`/admin/posts/${postId}/edit`}
-        className="absolute bottom-2 right-2 size-8 rounded-full bg-grad-1/40 flex items-center justify-center hover:bg-grad-1"
-      >
-        <Pencil className="text-white" size={15} />
-      </Link>
+      {session?.user.role === "admin" && (
+        <Link
+          href={`/admin/posts/${postId}/edit`}
+          className="absolute bottom-2 right-2 size-8 rounded-full bg-grad-1/40 flex items-center justify-center hover:bg-grad-1"
+        >
+          <Pencil className="text-white" size={15} />
+        </Link>
+      )}
     </div>
   );
 };

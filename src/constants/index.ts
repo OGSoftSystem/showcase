@@ -1,8 +1,7 @@
 import { FaXTwitter, FaPeopleGroup } from "react-icons/fa6";
 import { FaHome, FaBook, FaBurn, FaBlog } from "react-icons/fa";
 import { RiRoadMapLine } from "react-icons/ri";
-import { LuLayoutDashboard } from "react-icons/lu";
-import { Newspaper, UserPlus, Users } from "lucide-react";
+import { Newspaper, Users } from "lucide-react";
 
 type Props = { label?: string; url: string; Icon?: any };
 export const NAV_LINKS: Props[] = [
@@ -40,11 +39,6 @@ export const NAV_LINKS: Props[] = [
     label: "Twitter",
     url: "https://twitter.com",
     Icon: FaXTwitter,
-  },
-  {
-    label: "Dashboard",
-    url: "/admin",
-    Icon: LuLayoutDashboard,
   },
 ];
 

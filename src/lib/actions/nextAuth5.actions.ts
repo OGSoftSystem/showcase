@@ -7,5 +7,5 @@ export async function signInWithGoogle(provider: string, path: string) {
 }
 
 export async function handleSignOut() {
-  return signOut({ redirectTo: '/' });
+  return signOut({ redirectTo: "/" });
 }

@@ -38,7 +38,7 @@ export const MobileNav = () => {
 
           <div className="flex items-center space-x-2">
             <Logo width={30} height={30} />
-            <p className="text-sm uppercase">Company name</p>
+            <p className="text-sm uppercase">pLUSD</p>
           </div>
         </nav>
       </SheetContent>
@@ -74,7 +74,7 @@ export const AdminMobileNav = () => {
 
           <div className="flex items-center space-x-2">
             <Logo width={30} height={30} className="md:hidden" />
-            <p className="text-sm uppercase">Company name</p>
+            <p className="text-sm uppercase">pLUSD</p>
           </div>
         </nav>
       </SheetContent>

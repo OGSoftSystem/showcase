@@ -7,7 +7,7 @@ const SignUp = () => {
     <section className="w-full">
       <Wrapper className="max-w-5xl">
         <div className="grid md:grid-cols-3 items-center">
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 flex flex-col items-center">
             <h1 className="page-heading mb-8">Sign Up</h1>
             <AuthForm type="SignUp" />
           </div>

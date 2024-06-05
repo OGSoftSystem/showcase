@@ -72,11 +72,11 @@ const AuthForm = ({ type }: AuthFormType) => {
       }
     } else {
       try {
-        const user = await signIn('credentials',{
+        const user = await signIn("credentials", {
           email: data.email,
           password: data.password,
-          redirect: false
-        } );
+          redirect: false,
+        });
 
         if (user?.error) {
           toast({
@@ -87,6 +87,7 @@ const AuthForm = ({ type }: AuthFormType) => {
           });
           return;
         }
+        router.refresh();
         router.push("/");
       } catch (error) {
         throw error;

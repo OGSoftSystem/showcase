@@ -12,7 +12,7 @@ const getAllPost = cache(
     return await findAllPost();
   },
   ["getAllPost"],
-  { revalidate: 24 * 60 * 60 }
+  // { revalidate: 24 * 60 * 60 }
 );
 
 const PostsPage = () => {
@@ -59,7 +59,7 @@ const PostsPage = () => {
 export default PostsPage;
 
 async function RenderPosts() {
-  const posts: PostType[] = await findAllPost();
+  const posts: PostType[] = await getAllPost();
 
   return posts.map((post) => (
     <PostThumbnail

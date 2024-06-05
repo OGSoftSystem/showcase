@@ -9,6 +9,16 @@ import { Button, buttonVariants } from "../ui/button";
 import Link from "next/link";
 import { auth } from "@/auth";
 import { handleSignOut } from "@/lib/actions/nextAuth5.actions";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { ExitIcon } from "@radix-ui/react-icons";
+import { RiProfileFill } from "react-icons/ri";
 
 export async function Header() {
   const session = await auth();
@@ -67,31 +77,52 @@ function Pop({ user }: { user: UserType }) {
     <div className="flex items-center space-x-2">
       <>
         {user._id ? (
-          <Popover>
-            <PopoverTrigger>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
               <Admin user={user} />
-            </PopoverTrigger>
-            <PopoverContent className="w-fit flex flex-col items-center bg-grad-2/20 gap-2">
-              <form action={handleSignOut}>
-                <Button
-                  type="submit"
-                  variant="ghost"
-                  className="w-20 bg-grad-2/20 rounded-full text-xs text-white"
-                >
-                  Sign out
-                </Button>
-              </form>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="">
+              <DropdownMenuItem>
+                <div className="flex items-center space-x-4">
+                  <RiProfileFill />
+                  <Link href="/" className="text-xs text-white font-light">
+                    Profile
+                  </Link>
+                </div>
+              </DropdownMenuItem>
+              
+              {user.role === "admin" && (
+                <DropdownMenuItem>
+                  <div className="flex items-center space-x-4">
+                    <MdAdminPanelSettings />
+                    <Link
+                      href="/admin"
+                      className="text-xs text-white font-light"
+                    >
+                      Admin
+                    </Link>
+                  </div>
+                </DropdownMenuItem>
+              )}
 
-              <Button
-                asChild
-                type="submit"
-                variant="ghost"
-                className="w-20 bg-grad-2/20 rounded-full text-xs text-white"
-              >
-                <Link href="/">Profile</Link>
-              </Button>
-            </PopoverContent>
-          </Popover>
+              <DropdownMenuSeparator className="text-grad-2" />
+
+              <DropdownMenuItem>
+                <form action={handleSignOut}>
+                  <div className="flex items-center">
+                    <ExitIcon />
+                    <Button
+                      type="submit"
+                      variant="ghost"
+                      className="text-xs text-white font-light"
+                    >
+                      Sign out
+                    </Button>
+                  </div>
+                </form>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         ) : (
           <Button
             asChild

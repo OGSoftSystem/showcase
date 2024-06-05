@@ -1,5 +1,5 @@
 import { Schema, model, Model, models } from "mongoose";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 
 export interface IUser extends Document {
   email: string;
@@ -30,8 +30,8 @@ const UserSchema = new Schema<IUser, {}, Methods>({
 UserSchema.pre("save", async function (next) {
   try {
     if (!this.isModified(this.password) || this.isNew) {
-      const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(this.password, salt);
+      const salt = await bcryptjs.genSalt(10);
+      const hashedPassword = await bcryptjs.hash(this.password, salt);
       //  Set the entered password as the hashed password before saving to db
       this.password = hashedPassword;
     }
@@ -44,7 +44,7 @@ UserSchema.pre("save", async function (next) {
 
 UserSchema.methods.comparePassword = async function (password) {
   try {
-    return await bcrypt.compare(password, this.password);
+    return await bcryptjs.compare(password, this.password);
   } catch (error) {
     throw error;
   }

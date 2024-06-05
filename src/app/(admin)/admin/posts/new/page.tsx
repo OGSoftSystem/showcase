@@ -7,7 +7,7 @@ import { auth } from "@/auth";
 export default async function NewPostPage() {
   const session = await auth();
   const user = await findUserById(session?.user.id as string);
-
+  
   return (
     <section className="my-20">
       <Wrapper>

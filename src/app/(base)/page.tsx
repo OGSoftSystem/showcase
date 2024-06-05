@@ -8,19 +8,18 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
-
   return (
     <>
-      <section className="mt-28 xl:mt-44 relative z10">
+      <section className="mt-28 xl:mt-44 relative">
         <Wrapper className="flex flex-col items-center h-auto justify-center">
           <h1 className="text-5xl leading-[1.2] md:leading-[1.3] md:text-7xl lg:leading-[1] xl:text-8xl font-bold text-white text-center font-inter max-w-prose tracking-tight">
             Liquity on Pulsechain.
           </h1>
           <br className="md:hidden" />
-          <h1 className="text-2xl md:mt-6 lg:mt-8 md:text-4xl xl:text-5xl font-bold bg-gradient-to-tr from-grad-3/60 to-grad-1/80 bg-clip-text text-transparent text-center xl:leading-tight tracking-tight">
+          <h1 className="text-2xl md:mt-6 lg:mt-8 md:text-4xl xl:text-5xl font-bold bg-gradient-to-tr text-grad-1 text-center xl:leading-tight tracking-tight">
             The King of pStables.
           </h1>
-          <p className="text-sm md:text-lg lg:text-xl font-light text-muted-foreground mt-2 lg:mt-2">
+          <p className="text-sm md:text-lg lg:text-xl font-light text-white mt-2 lg:mt-2">
             Join The Future Stablecoin Movement.
           </p>
 
@@ -36,7 +35,7 @@ export default function Home() {
           <div className="mt-12">
             <Button
               size="lg"
-              className="btn text-white bg-grad-1 font-bold h-16"
+              className="btn text-white bg-grad-1 font-bold h-14"
               asChild
             >
               <Link
@@ -50,7 +49,7 @@ export default function Home() {
           </div>
         </Wrapper>
 
-        <div className="absolute blur-[140px] top-20  size-[250px] md:top-16 md:right-5 bg-gradient-to-tr from-grad-3 to-70% via-grad-2 to-grad-1 md:blur-[700px] md:size-2/4 rounded-full" />
+        <div className="absolute blur-[100px] top-20 size-[280px] md:top-16 md:right-5 bg-gradient-to-tr from-grad-3 to-70% via-grad-2 to-grad-1 md:blur-[150px] md:size-2/4 rounded-full -z-10" />
       </section>
 
       <section className="my-20">
@@ -123,7 +122,7 @@ export default function Home() {
             <FaQAccordion />
           </div>
         </Wrapper>
-        <div className="absolute top-48 right-5 blur-[140px] size-[300px] md:top-20 md:left-5 bg-gradient-to-tr from-grad-2 to-70% via-grad-1 to-grad-3 md:blur-[700px] md:size-2/6 rounded-full" />
+        <div className="absolute top-48 right-5 blur-[140px] size-[200px] md:top-20 md:left-5 bg-gradient-to-tr from-grad-2 to-70% via-grad-1 to-grad-3 md:blur-[170px] md:size-2/6 rounded-full -z-10" />
       </section>
     </>
   );
