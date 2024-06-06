@@ -57,7 +57,7 @@ const ImageUploader = ({
                 <Image
                   src={imgUrl}
                   width={imgConfig.width}
-                  height={imgConfig.height}
+                  height={imgConfig.height / 2}
                   alt="post_banner"
                   className="aspect-video mt-4 object-cover"
                 />

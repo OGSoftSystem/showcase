@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { findPostById } from "@/lib/actions/post.actions";
 import { formatDateTime, imgBaseUrl } from "@/lib/utils";
+import parse from "html-react-parser";
 // import PageHeading from "@/components/shared/PageHeading";
 
 const PostPage = async ({
@@ -13,6 +14,8 @@ const PostPage = async ({
 }) => {
   const post = await findPostById(postId);
   const date = formatDateTime(new Date(post.date));
+
+  const cleanPost = post?.body ? parse(post.body) : ""
 
   return (
     <section className="pt-20">
@@ -62,7 +65,7 @@ const PostPage = async ({
             </div>
             <div className="text-xs text-muted-foreground">{date}</div>
           </div>
-          <div className="p-text my-4">{post?.body}</div>
+          <div className="p-text my-4">{cleanPost}</div>
 
           <div className="w-full my-4 lg:hidden">
             <SocialShare

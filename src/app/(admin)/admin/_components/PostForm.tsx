@@ -1,6 +1,7 @@
 "use client";
 
 import ImageUploader from "@/components/shared/ImageUploader";
+import Spinner from "@/components/shared/Spinner";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -19,24 +20,28 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { createPost, findPostAndUpdate } from "@/lib/actions/post.actions";
-import { imgBaseUrl } from "@/lib/utils";
 import { CreatePostSchema, CreatePostType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState, useTransition } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
 // import DatePicker from "react-datepicker";
 
 // import "react-datepicker/dist/react-datepicker.css";
 
 type FormType = {
   type: "Create" | "Update";
-  post?: any;
-  sessionUser?: string;
+  post?: PostType;
 };
 
-const PostForm = ({ type, post, sessionUser }: FormType) => {
+const PostForm = ({ type, post }: FormType) => {
+  const { data: session } = useSession();
+
   const initialValue = {
     imageUrl: "",
     title: "",
@@ -62,25 +67,38 @@ const PostForm = ({ type, post, sessionUser }: FormType) => {
   });
 
   const [imgUrl, setImgUrl] = useState("");
-  const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   const onSubmitForm = async (data: CreatePostType) => {
-    console.log(data);
-    if (type === "Create") {
-      const newPost = await createPost(
-        {
-          ...data,
-          author: sessionUser as string,
-        },
-        "/admin/posts"
-      );
-      if (newPost?.error) {
-        console.log(newPost.error);
+
+    try {
+      if (type === "Create") {
+        const newPost = await createPost(
+          {
+            ...data,
+            author: session?.user.name as string,
+          },
+          "/admin/posts"
+        );
+        if (newPost?.error) {
+          console.log(newPost.error);
+        }
+        router.replace("/admin/posts");
       }
-      router.replace("/admin/posts");
-    } else {
-      await findPostAndUpdate(post._id, post);
+
+      if (type === "Update") {
+        if (post == null) return;
+
+        const updatedPost = await findPostAndUpdate(
+          post._id,
+          data as Omit<PostType, "_id">
+        );
+        if (updatedPost) {
+          router.replace("/admin/posts");
+        }
+      }
+    } catch (error) {
+      throw error;
     }
   };
 
@@ -152,9 +170,9 @@ const PostForm = ({ type, post, sessionUser }: FormType) => {
               <FormControl>
                 <Input
                   {...field}
-                  defaultValue={sessionUser}
                   placeholder="Author"
-                  value={sessionUser}
+                  value={session?.user.name as string}
+                  // defaultValue={session?.user.name as string}
                 />
               </FormControl>
             </FormItem>
@@ -166,7 +184,13 @@ const PostForm = ({ type, post, sessionUser }: FormType) => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Textarea rows={10} {...field} placeholder="Body" />
+                <ReactQuill
+                  theme="snow"
+                  value={field.value}
+                  onChange={field.onChange}
+                  placeholder="Body"
+                />
+                {/* <Textarea rows={10} {...field} placeholder="Body" /> */}
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -217,7 +241,14 @@ const PostForm = ({ type, post, sessionUser }: FormType) => {
             )}
           /> */}
         </div>
-        <Button type="submit">{type === "Create" ? "Create" : "Update"}</Button>
+        <Button
+          className="btn bg-grad-2 text-white"
+          type="submit"
+          disabled={form.formState.isSubmitting}
+        >
+          {type === "Create" ? "Create" : "Update"}
+          {form.formState.isSubmitting && <Spinner />}
+        </Button>
       </form>
     </Form>
   );

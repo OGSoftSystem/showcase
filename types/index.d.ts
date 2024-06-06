@@ -11,10 +11,10 @@ declare type PostType = {
   _id: string;
   title: string;
   subtitle: string;
-  body: string;
+  body?: string;
   author: string;
   date: Date;
-  published?: boolean;
+  published: boolean;
   category: string;
   imageUrl: any;
 };

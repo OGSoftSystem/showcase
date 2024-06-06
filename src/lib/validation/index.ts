@@ -41,28 +41,6 @@ export const CreatePostSchema = z.object({
     .min(2, { message: "Author should be at least 2 character long" }),
   category: z
     .string()
-    .min(2, { message: "password should be at least 2 character long" }),
+    .min(2, { message: "Category should be at least 2 character long" }),
 });
 export type CreatePostType = z.infer<typeof CreatePostSchema>;
-
-// UPDATE POST
-export const UpdatePostSchema = z.object({
-  title: z
-    .string()
-    .min(4, { message: "body should be at least 4 character long" }),
-  author: z
-    .string()
-    .min(2, { message: "password should be at least 2 character long" }),
-  body: z
-    .string()
-    .min(6, { message: "password should be at least 6 character long" }),
-  imageUrl: z.any(),
-  subtitle: z
-    .string()
-    .min(2, { message: "password should be at least 2 character long" }),
-
-  category: z
-    .string()
-    .min(2, { message: "password should be at least 2 character long" }),
-});
-export type UpdatePostType = z.infer<typeof UpdatePostSchema>;

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import PostThumbnail, { PostSkeleton } from "@/components/shared/PostThumbnail";
 import { Suspense } from "react";
-import { findAllPost } from "@/lib/actions/post.actions";
+import { findAllPost, findAllPublishedPost } from "@/lib/actions/post.actions";
 
 const BlogPage = () => {
   return (
@@ -73,7 +73,13 @@ const BlogPage = () => {
 export default BlogPage;
 
 async function RenderPostThumbnails() {
-  const posts: PostType[] = await findAllPost();
+  const posts: PostType[] = await findAllPublishedPost();
+
+  if (!posts.length) {
+    return (
+      <p className="text-bold text-muted-foreground">No available posts.</p>
+    );
+  }
 
   return posts.map((post) => {
     return (
@@ -86,6 +92,7 @@ async function RenderPostThumbnails() {
         subtitle={post.subtitle}
         category={post.category}
         author={post.author}
+        published={post.published}
       />
     );
   });

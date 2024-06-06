@@ -12,7 +12,7 @@ const getAllPost = cache(
     return await findAllPost();
   },
   ["getAllPost"],
-  // { revalidate: 24 * 60 * 60 }
+  { revalidate: 60 * 60 * 24 }
 );
 
 const PostsPage = () => {
@@ -60,6 +60,9 @@ export default PostsPage;
 
 async function RenderPosts() {
   const posts: PostType[] = await getAllPost();
+  if (!posts.length) {
+    return <p className="text-bold">No available posts.</p>;
+  }
 
   return posts.map((post) => (
     <PostThumbnail
@@ -71,6 +74,7 @@ async function RenderPosts() {
       date={post.date}
       postId={post._id}
       author={post.author}
+      published={post.published}
     />
   ));
 }

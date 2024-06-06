@@ -31,9 +31,7 @@ UserSchema.pre("save", async function (next) {
   try {
     if (!this.isModified(this.password) || this.isNew) {
       const salt = await bcryptjs.genSalt(10);
-      const hashedPassword = await bcryptjs.hash(this.password, salt);
-      //  Set the entered password as the hashed password before saving to db
-      this.password = hashedPassword;
+      this.password = await bcryptjs.hash(this.password, salt);
     }
 
     next();

@@ -1,8 +1,16 @@
 import { formatDateTime, imgBaseUrl } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { Pencil } from "lucide-react";
+import { EllipsisVertical, Pencil } from "lucide-react";
 import { auth } from "@/auth";
+import { DeleteButton, PublishButton } from "./PostActions";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "../ui/dropdown-menu";
 
 type Props = {
   postId: string;
@@ -12,6 +20,7 @@ type Props = {
   subtitle: string;
   category: string;
   author: string;
+  published: boolean;
 };
 
 const PostThumbnail = async ({
@@ -22,16 +31,23 @@ const PostThumbnail = async ({
   subtitle,
   category,
   author,
+  published,
 }: Props) => {
   const createdAt = formatDateTime(new Date(date));
 
   const session = await auth();
 
+
   return (
     <div className="w-full md:w-[300px] h-auto hover:bg-grad-1/10 ease-in duration-300 relative">
       <Link href={`/blog/${postId}`}>
-        <div className="relative w-full md:w-[300px] h-[150px] overflow-hidden">
-          <Image src={`${imgBaseUrl}${imageUrl}`} fill alt="post_banner" />
+        <div className="relative w-full md:w-[300px] h-[120px] overflow-hidden">
+          <Image
+            src={`${imgBaseUrl}${imageUrl}`}
+            fill
+            alt="post_banner"
+            className="aspect-video"
+          />
         </div>
         <div className="flex justify-between my-2">
           <p className="text-muted-foreground text-xs">{createdAt}</p>
@@ -47,12 +63,30 @@ const PostThumbnail = async ({
       </Link>
 
       {session?.user.role === "admin" && (
-        <Link
-          href={`/admin/posts/${postId}/edit`}
-          className="absolute bottom-2 right-2 size-8 rounded-full bg-grad-1/40 flex items-center justify-center hover:bg-grad-1"
-        >
-          <Pencil className="text-white" size={15} />
-        </Link>
+        <div className="absolute bottom-2 right-2 size-8 rounded-full bg-grad-1/40 flex items-center justify-center hover:bg-grad-1">
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <>
+                <EllipsisVertical />
+                <span className="sr-only">Menu</span>
+              </>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>
+                <Link
+                  href={`/admin/posts/${postId}/edit`}
+                  className="flex items-center space-x-2"
+                >
+                  <Pencil className="text-white" size={15} /> <span>Edit</span>
+                </Link>
+              </DropdownMenuItem>
+              <PublishButton postId={postId} isPublished={published} />
+              
+              <DropdownMenuSeparator />
+              <DeleteButton postId={postId} />
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       )}
     </div>
   );
