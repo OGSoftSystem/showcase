@@ -19,7 +19,7 @@ type Props = {
   date: Date;
   subtitle: string;
   category: string;
-  author: string;
+  authorsName: string;
   published: boolean;
 };
 
@@ -30,13 +30,12 @@ const PostThumbnail = async ({
   date,
   subtitle,
   category,
-  author,
+  authorsName,
   published,
 }: Props) => {
   const createdAt = formatDateTime(new Date(date));
 
   const session = await auth();
-
 
   return (
     <div className="w-full md:w-[300px] h-auto hover:bg-grad-1/10 ease-in duration-300 relative">
@@ -55,7 +54,7 @@ const PostThumbnail = async ({
           <div className="flex space-x-1 items-center">
             <p className="text-muted-foreground text-xs">{category}</p>
             <span className="text-xs">|</span>
-            <p className="text-muted-foreground text-xs">{author}</p>
+            <p className="text-muted-foreground text-xs">{authorsName}</p>
           </div>
         </div>
         <h3 className="text-2xl font-semibold line-clamp-1">{title}</h3>
@@ -81,7 +80,7 @@ const PostThumbnail = async ({
                 </Link>
               </DropdownMenuItem>
               <PublishButton postId={postId} isPublished={published} />
-              
+
               <DropdownMenuSeparator />
               <DeleteButton postId={postId} />
             </DropdownMenuContent>

@@ -18,7 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { createPost, findPostAndUpdate } from "@/lib/actions/post.actions";
 import { CreatePostSchema, CreatePostType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,10 +28,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
-// import DatePicker from "react-datepicker";
-
-// import "react-datepicker/dist/react-datepicker.css";
 
 type FormType = {
   type: "Create" | "Update";
@@ -46,7 +41,6 @@ const PostForm = ({ type, post }: FormType) => {
     imageUrl: "",
     title: "",
     subtitle: "",
-    author: "",
     body: "",
     category: "",
   };
@@ -58,7 +52,6 @@ const PostForm = ({ type, post }: FormType) => {
           imageUrl: post.imageUrl,
           title: post.title,
           subtitle: post.subtitle,
-          author: post.author,
           body: post.body,
           category: post.category,
         }
@@ -70,14 +63,12 @@ const PostForm = ({ type, post }: FormType) => {
   const router = useRouter();
 
   const onSubmitForm = async (data: CreatePostType) => {
-
     try {
       if (type === "Create") {
         const newPost = await createPost(
-          {
-            ...data,
-            author: session?.user.name as string,
-          },
+          data,
+          session?.user.id as string,
+
           "/admin/posts"
         );
         if (newPost?.error) {
@@ -162,7 +153,7 @@ const PostForm = ({ type, post }: FormType) => {
             </FormItem>
           )}
         />
-        <FormField
+        {/* <FormField
           name="author"
           control={form.control}
           render={({ field }) => (
@@ -177,7 +168,7 @@ const PostForm = ({ type, post }: FormType) => {
               </FormControl>
             </FormItem>
           )}
-        />
+        /> */}
         <FormField
           name="body"
           control={form.control}

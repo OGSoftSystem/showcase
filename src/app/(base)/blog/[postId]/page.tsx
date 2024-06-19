@@ -3,8 +3,12 @@ import Wrapper from "@/components/shared/Wrapper";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { findPostById } from "@/lib/actions/post.actions";
-import { formatDateTime, imgBaseUrl } from "@/lib/utils";
-import parse from "html-react-parser";
+import { cleanText, formatDateTime, imgBaseUrl } from "@/lib/utils";
+import CommentForm from "../_components/CommentForm";
+import { notFound } from "next/navigation";
+import Likes from "../_components/Likes";
+import { auth } from "@/auth";
+import { LoadComments } from "../_components/Comment";
 // import PageHeading from "@/components/shared/PageHeading";
 
 const PostPage = async ({
@@ -12,10 +16,13 @@ const PostPage = async ({
 }: {
   params: { postId: string };
 }) => {
-  const post = await findPostById(postId);
+  if (postId == null) return notFound();
+
+  const session = await auth();
+  const post: PostType = await findPostById(postId);
   const date = formatDateTime(new Date(post.date));
 
-  const cleanPost = post?.body ? parse(post.body) : ""
+  const cleanPost = post?.body ? cleanText(post.body) : "";
 
   return (
     <section className="pt-20">
@@ -24,19 +31,25 @@ const PostPage = async ({
         {/* Left */}
         <div className="hidden flex-[0.4] sticky top-0 overflow-y-scroll h-[calc(100vh-50px)] pt-4 lg:flex justify-center">
           <div className="flex flex-col items-center space-y-2">
-            <div className="size-44 rounded-full overflow-hidden relative">
+            <div className="size-24 rounded-full overflow-hidden relative">
               <Image
-                src="/assets/images/mela.png"
+                src={
+                  post?.author?.imageUrl ||
+                  `${imgBaseUrl}${post?.author.imageUrl}`
+                }
                 fill
-                alt={post?.author!}
-                className="object-cover"
+                alt={post?.author.name}
+                className="object-contain"
               />
             </div>
 
             <>
-              <p className="text-center">Author: {post?.author}</p>
-              <p className="text-sm text-muted-foreground">
-                About author info to be displayed here.
+              <p className="text-center">
+                Author:{" "}
+                <span className="font-semibold">{post?.author.name}</span>
+              </p>
+              <p className="text-sm text-muted-foreground text-center">
+                {cleanText(post?.author.about) || "Award winning author."}
               </p>
             </>
           </div>
@@ -56,7 +69,9 @@ const PostPage = async ({
 
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold capitalize">{post?.title}</h2>
-            <p className="text-muted-foreground font-light">{post?.author}</p>
+            <p className="text-muted-foreground font-light">
+              {post?.author.name}
+            </p>
           </div>
           <div className="text-lg font-light capitalize">{post?.subtitle}</div>
           <div className="flex items-center justify-between mt-2">
@@ -66,6 +81,14 @@ const PostPage = async ({
             <div className="text-xs text-muted-foreground">{date}</div>
           </div>
           <div className="p-text my-4">{cleanPost}</div>
+
+          <div>
+            <Likes
+              postId={post._id}
+              userId={session?.user.id as string}
+              likedByMe={post?.likedByMe as string}
+            />
+          </div>
 
           <div className="w-full my-4 lg:hidden">
             <SocialShare
@@ -79,7 +102,9 @@ const PostPage = async ({
           <Separator />
 
           <div className="mt-8">
-            <p>Comments</p>
+            <p className="text-xl mb-4">Comments</p>
+
+            <LoadComments postAuthor={post?.author} postId={post._id} />
           </div>
         </div>
 

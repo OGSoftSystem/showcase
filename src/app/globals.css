@@ -62,24 +62,24 @@ html {
 }
 @layer utilities {
   .btn {
-    @apply rounded-full text-lg font-inter py-6;
+    @apply rounded-full text-lg font-noto py-6 bg-grad-1 h-14 text-white font-bold;
   }
   .page-heading {
-    @apply text-3xl font-semibold my-8 text-accent-foreground;
+    @apply text-3xl font-semibold my-8 text-accent-foreground font-noto;
   }
   .p-text {
-    @apply text-[1rem] font-light leading-[1.7] text-grad-4;
+    @apply text-[1.05rem] font-light leading-[1.7] text-grad-4 font-hind;
   }
-   .auth-wrapper {
+  .auth-wrapper {
     @apply w-full flex flex-col h-screen items-center justify-center;
   }
-   .form-input {
+  .form-input {
     @apply p-4 rounded-full h-11 w-full border-grad-1/60 border-[0.5px] shadow-sm bg-transparent focus-visible:bg-transparent;
   }
-   .form {
+  .form {
     @apply w-full sm:w-9/12 lg:w-3/4;
   }
-   .form-btn {
+  .form-btn {
     @apply rounded-full bg-grad-1/60 text-white duration-300 ease-in w-full h-12 text-xl font-[400];
   }
   .success-alert {

@@ -25,8 +25,10 @@ export default function RoadMap({ defaultColor }: { defaultColor: string }) {
               className={`${color} w-0.5 h-6 translate-x-80 translate-y-56 opacity-60 sm:hidden`}
             ></div> */}
 
-            <div className="hidden items-start w-44 pt-0.5 relative sm:flex cursor-pointer">
-              <div className="w-4/5 text-accent-foreground">{element.date}</div>
+            <div className="items-start w-44 pt-0.5 relative sm:flex cursor-pointer">
+              <div className="w-4/5 text-sm md:text-xl hover:text-grad-3 text-accent-foreground font-light">
+                {element.date}
+              </div>
               <div
                 className={`${color} w-px h-full translate-x-5 translate-y-10 opacity-30`}
               ></div>
@@ -36,10 +38,10 @@ export default function RoadMap({ defaultColor }: { defaultColor: string }) {
                     ? "/assets/icons/check.svg"
                     : "/assets/icons/work.svg"
                 }
-                width={100}
-                height={100}
+                width={80}
+                height={80}
                 alt="icon"
-                className={`${color} w-10 p-1 rounded-lg z-20`}
+                className={`${color} hidden sm:block size-10 p-1 rounded-full z-20 text-white`}
               />
 
               <div
@@ -47,17 +49,17 @@ export default function RoadMap({ defaultColor }: { defaultColor: string }) {
               ></div>
             </div>
 
-            <Card className="px-8 py-4 w-full z-10 sm:w-96 group-hover:bg-grad-2/20 group-hover:rotate-[360deg] ease-in duration-300 cursor-pointer">
+            <Card className="p-4 w-full z-10 sm:w-80 group-hover:bg-grad-1/10 group-hover:translate-x-2 ease-in duration-300 transition-all cursor-pointer border-[0.5px]">
               <CardHeader>
-                <CardTitle className="text-xl text-muted-foreground font-medium">
+                <CardTitle className="text-sm md:text-xl lg:text-2xl text-muted-foreground font-hind font-light hover:text-white">
                   {element.title}
                 </CardTitle>
-                <div className="text-muted-foreground mb-6 sm:mb-8 sm:text-xs">
+                {/* <div className="text-muted-foreground mb-6 sm:mb-8 sm:text-xs">
                   {element.location}
                   <span className="sm:hidden">| {element.date}</span>
-                </div>
+                </div> */}
               </CardHeader>
-              <CardContent>
+              {/* <CardContent>
                 <div className="mb-4 p-text">
                   {element.description}
                 </div>
@@ -72,7 +74,7 @@ export default function RoadMap({ defaultColor }: { defaultColor: string }) {
                   alt="icon"
                   className={`${color} w-8 p-1 rounded-lg z-20 absolute left-4 top-4 sm:hidden `}
                 />
-              </CardContent>
+              </CardContent> */}
             </Card>
           </div>
         );

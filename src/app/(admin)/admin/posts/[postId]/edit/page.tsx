@@ -8,9 +8,9 @@ const EditPostPage = async ({
 }: {
   params: { postId: string };
 }) => {
-
   const post: PostType = await findPostById(postId);
-  
+
+
   return (
     <section className="my-20">
       <Wrapper>
@@ -19,10 +19,7 @@ const EditPostPage = async ({
           pageSubtitle="Make Changes to Current Post."
         />
         <div className="w-full flex justify-center my-20">
-          <PostForm
-            type="Update"
-            post={post}
-          />
+          <PostForm type="Update" post={post} />
         </div>
       </Wrapper>
     </section>

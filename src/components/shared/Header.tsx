@@ -85,7 +85,7 @@ function Pop({ user }: { user: UserType }) {
               <DropdownMenuItem>
                 <div className="flex items-center space-x-4">
                   <RiProfileFill />
-                  <Link href="/" className="text-xs text-white font-light">
+                  <Link href={`/profile/${user._id}/edit`} className="text-xs text-white font-light">
                     Profile
                   </Link>
                 </div>

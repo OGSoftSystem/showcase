@@ -20,20 +20,20 @@ const config = {
     },
     extend: {
       fontFamily: {
-        inter: ["var(--font-inter)", ...fontFamily.sans],
-        // inter: "var(--font-inter)",
+        noto: ["var(--font-noto)", ...fontFamily.sans],
+        hind: "var(--font-hind)",
       },
-      screens: {"mmd": "800px"},
+      screens: { mmd: "800px" },
       colors: {
-        grad:{
-          1: '#1967FE',
-          2: '#A80AF5',
-          3: '#EA14BA',
-          4: '#eaf1f7',
+        grad: {
+          1: "#1967FE",
+          2: "#A80AF5",
+          3: "#EA14BA",
+          4: "#eaf1f7",
         },
-        main:{
-          1: '#390A45',
-          2: '#F0DED4'
+        main: {
+          1: "#390A45",
+          2: "#F0DED4",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

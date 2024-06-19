@@ -64,7 +64,7 @@ async function RenderPosts() {
     return <p className="text-bold">No available posts.</p>;
   }
 
-  return posts.map((post) => (
+  return posts.map((post: PostType) => (
     <PostThumbnail
       key={post.title}
       title={post.title}
@@ -73,7 +73,7 @@ async function RenderPosts() {
       category={post.category}
       date={post.date}
       postId={post._id}
-      author={post.author}
+      authorsName={post.author.name}
       published={post.published}
     />
   ));

@@ -5,6 +5,8 @@ declare type UserType = {
   _id: string;
   // password: string;
   role?: string;
+  about?: string;
+  isAdmin?: boolean;
 };
 
 declare type PostType = {
@@ -12,9 +14,18 @@ declare type PostType = {
   title: string;
   subtitle: string;
   body?: string;
-  author: string;
+  author: { name: string; imageUrl: string; about: string };
   date: Date;
   published: boolean;
   category: string;
   imageUrl: any;
+  likedByMe?: string;
+};
+
+declare type CommentProps = {
+  _id: string;
+  author: { name: string; imageUrl: string };
+  comment: string;
+  createdAt: Date;
+  updateAt: Date;
 };

@@ -2,6 +2,7 @@ import { FaXTwitter, FaPeopleGroup } from "react-icons/fa6";
 import { FaHome, FaBook, FaBurn, FaBlog } from "react-icons/fa";
 import { RiRoadMapLine } from "react-icons/ri";
 import { Newspaper, Users } from "lucide-react";
+import Link from "next/link";
 
 type Props = { label?: string; url: string; Icon?: any };
 export const NAV_LINKS: Props[] = [
@@ -30,14 +31,14 @@ export const NAV_LINKS: Props[] = [
     url: "/blog",
     Icon: FaBlog,
   },
-  {
-    label: "Community",
-    url: "/community",
-    Icon: FaPeopleGroup,
-  },
+  // {
+  //   label: "Community",
+  //   url: "/community",
+  //   Icon: FaPeopleGroup,
+  // },
   {
     label: "Twitter",
-    url: "https://twitter.com",
+    url: "https://x.com/pulseliquity",
     Icon: FaXTwitter,
   },
 ];
@@ -62,23 +63,15 @@ export const NOTES = [
 
 const elements = [
   {
-    title: "Twitter Launch ",
+    title: "Slowed Mint Rate",
     location: "City1, State1",
     description: "Completed my degree in Computer Science",
-    date: "2018",
+    date: "2022 - Now",
     icon: "school",
     color: "blue",
   },
   {
-    title: "100K+ Holders",
-    location: "City1, State1",
-    description: "Completed my degree in Computer Science",
-    date: "2020",
-    icon: "school",
-    color: "blue",
-  },
-  {
-    title: "Dex Listings",
+    title: "Twitter Launch",
     location: "City1, State1",
     description: "Completed my degree in Computer Science",
     date: "2020",
@@ -94,13 +87,14 @@ const elements = [
     color: "blue",
   },
   {
-    title: "Slowed Mint Rate",
+    title: "Dex Listings",
     location: "City1, State1",
     description: "Completed my degree in Computer Science",
     date: "2020",
     icon: "school",
     color: "blue",
   },
+
   {
     title: "95-99% Supply Burn",
     location: "City1, State1",
@@ -113,22 +107,22 @@ const elements = [
     title: "Peggening",
     location: "City1, State1",
     description: "Completed my degree in Computer Science",
-    date: "2020 - Now",
+    date: "2020",
     icon: "school",
     color: "blue",
   },
 ];
 
-export const timelineElements = elements.reverse();
+export const timelineElements = elements;
 
 export const FAQ: {
   question: string;
   answer: { main: string; points?: string[] };
 }[] = [
   {
-    question: "How do tokens work?",
+    question: "What is pLUSD?",
     answer: {
-      main: "This is a dummy text. Answers will be displayed here when available",
+      main: "pLUSD is a stablecoin on the PulseChain network, designed to reach and maintain $1 parity. It is a fork of the original LUSD on ETH, optimized for PulseChain’s enhanced performance.",
       // points: [
       //   "Goal Setting Tools: Set clear, achievable goals and track your progress with our intuitive interface.",
       //   "Automated Savings: Schedule automatic transfers from your checking account to your Every Penny account, making saving effortless",
@@ -138,9 +132,9 @@ export const FAQ: {
     },
   },
   {
-    question: "What AI models are available?",
+    question: "How does pLUSD maintain its $1 value?",
     answer: {
-      main: "This is a dummy text. Answers will be displayed here when available",
+      main: "While pLUSD is designed to reach $1 parity, it has not yet achieved this goal. The protocol focuses on buying and burning tokens via our GIFF collaboration and will use a rebalancer protocol to maintain stability at $1.",
       // points: [
       //   "Break Down Barriers: Small, consistent savings add up! Every Penny helps you conquer seemingly impossible goals.",
       //   "Stay Focused: Eliminate temptation by separating your spending and saving accounts.",
@@ -150,16 +144,18 @@ export const FAQ: {
     },
   },
   {
-    question: "Where is my data stored?",
+    question: "How much of pLUSD supply will we be burning?",
     answer: {
-      main: "This is a dummy text. Answers will be displayed here when available",
+      main: "95-99% if all available supply.",
       // points: [],
     },
   },
   {
-    question: "What is a community? ",
+    question: "How can I acquire pLUSD?",
     answer: {
-      main: "This is a dummy text. Answers will be displayed here when available",
+      main: `
+      You can buy pLUSD via pulsex.com, piteas.io or 9inch.io.
+      `,
       // points: [
       //   "Non-Profit Focus: We're not driven by profit margins. We're driven by your success!",
       //   "Empowerment Over Selling: We don't push investment products or hidden fees. We focus on helping you save smart.",
@@ -168,9 +164,9 @@ export const FAQ: {
     },
   },
   {
-    question: "What happens if I exceed my monthly limit? ",
+    question: "Is pLUSD secure?",
     answer: {
-      main: "This is a dummy text. Answers will be displayed here when available",
+      main: "Yes, pLUSD is built on the robust infrastructure of PulseChain and follows the same security protocols as the original LUSD, which is part of an immutable contract.",
       // points: [
       //   "Non-Profit Focus: We're not driven by profit margins. We're driven by your success!",
       //   "Empowerment Over Selling: We don't push investment products or hidden fees. We focus on helping you save smart.",
@@ -179,20 +175,9 @@ export const FAQ: {
     },
   },
   {
-    question: "When are my usage limits renewed? ",
+    question: "Who is behind pLUSD?",
     answer: {
-      main: "This is a dummy text. Answers will be displayed here when available",
-      // points: [
-      //   "Non-Profit Focus: We're not driven by profit margins. We're driven by your success!",
-      //   "Empowerment Over Selling: We don't push investment products or hidden fees. We focus on helping you save smart.",
-      //   "Building Confidence: We believe financial literacy is key. We offer resources and support to help you understand your finances.",
-      // ],
-    },
-  },
-  {
-    question: "Who can interact with my AI user? ",
-    answer: {
-      main: "This is a dummy text. Answers will be displayed here when available",
+      main: "The original LUSD team on ETH invented it and Richard Heart copied all smart contacts from Ethereum to PulseChain. It is now a community takeover on PulseChain.",
       // points: [
       //   "Non-Profit Focus: We're not driven by profit margins. We're driven by your success!",
       //   "Empowerment Over Selling: We don't push investment products or hidden fees. We focus on helping you save smart.",
@@ -259,3 +244,6 @@ export const DUMMY_POSTS = [
     author: "Mela",
   },
 ];
+
+export const burnVideoLink =
+  "https://www.youtube.com/embed/PxWh__9ttN4?si=I4ySVBvZ0QYieG2d";

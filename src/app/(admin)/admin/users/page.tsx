@@ -1,6 +1,6 @@
 import Wrapper from "@/components/shared/Wrapper";
 // import UsersTable from "@/components/shared/UsersTable";
-import UsersTableView from "@/components/shared/UsersTableView";
+import UsersTableView from "@/app/(admin)/admin/_components/UsersTableView";
 import { findAllUsers } from "@/lib/actions/user.actions";
 import { cache } from "@/lib/cache";
 
@@ -9,18 +9,17 @@ import PageHeading from "@/components/shared/PageHeading";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-const getUsers = cache(
-  () => {
-    return findAllUsers();
-  },
-  ["getUsers"],
-  { revalidate: 60 * 60 * 24 }
-);
+// const getUsers = cache(
+//   () => {
+//     return findAllUsers();
+//   },
+//   ["getUsers"],
+//   { revalidate: 60 * 60 * 24 }
+// );
 
 const UsersPage = async () => {
-  const users: UserType[] = await getUsers();
+  const users: UserType[] = await findAllUsers();
   if (users == null) return notFound();
-
 
   return (
     <section className="mt-10 lg:mt-20">

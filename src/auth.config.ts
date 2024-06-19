@@ -3,7 +3,6 @@ import type { NextAuthConfig } from "next-auth";
 import User from "./lib/database/models/user.model";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
-import { profile } from "console";
 
 const PROTECTED_ROUTES = ["/admin", "/blog"];
 
@@ -99,11 +98,11 @@ export default {
       return token;
     },
 
-    async authorized({ request, auth }) {
-      const { pathname } = request.nextUrl;
-      if (PROTECTED_ROUTES.includes(pathname)) return !!auth;
-      return true;
-    },
+    // async authorized({ request, auth }) {
+    //   const { pathname } = request.nextUrl;
+    //   if (PROTECTED_ROUTES.includes(pathname)) return !!auth;
+    //   return true;
+    // },
   },
 
   pages: {

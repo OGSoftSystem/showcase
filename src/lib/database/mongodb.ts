@@ -19,7 +19,7 @@ export default async function connectToDatabase() {
   cache.promise =
     cache.promise ||
     mongoose.connect(URI, {
-      dbName: "Liquity",
+      dbName: "pLUSD",
       bufferCommands: false,
     } as mongoose.ConnectOptions);
 

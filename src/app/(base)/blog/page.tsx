@@ -35,7 +35,7 @@ const BlogPage = () => {
             <Link
               href="#posts"
               className={buttonVariants({
-                variant: "secondary",
+                variant: "default",
                 className: "w-52 btn self-center lg:self-start",
               })}
             >
@@ -81,7 +81,7 @@ async function RenderPostThumbnails() {
     );
   }
 
-  return posts.map((post) => {
+  return posts.map((post: PostType) => {
     return (
       <PostThumbnail
         key={post._id}
@@ -91,7 +91,7 @@ async function RenderPostThumbnails() {
         date={post.date}
         subtitle={post.subtitle}
         category={post.category}
-        author={post.author}
+        authorsName={post.author.name}
         published={post.published}
       />
     );

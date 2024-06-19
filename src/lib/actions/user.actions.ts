@@ -22,13 +22,30 @@ export const createUser = async (user: IUser) => {
 };
 
 export const findUserById = async (userId: string) => {
-
   try {
     await connectToDatabase();
     const user = await User.findById(userId);
     if (user == null) return notFound();
-    
+
     return JSON.parse(JSON.stringify(user));
+  } catch (error) {
+    return { error: handleError(error) };
+  }
+};
+
+export const findUserAndUpdate = async (
+  userId: string,
+  user: Omit<UserType, "_id" | "role" | "isAdmin">
+) => {
+  try {
+    await connectToDatabase();
+    const updatedUser = await User.findByIdAndUpdate(userId, user, {
+      new: true,
+    });
+    if (user == null) return notFound();
+    if (updatedUser) revalidatePath("/admin/users");
+
+    return JSON.parse(JSON.stringify(updatedUser));
   } catch (error) {
     return { error: handleError(error) };
   }
@@ -64,6 +81,26 @@ export const deleteUser = async (userId: string) => {
     await connectToDatabase();
     const userToDelete = await User.findByIdAndDelete(userId);
     if (userToDelete) {
+      revalidatePath("/admin/users");
+    }
+  } catch (error) {
+    return { error: handleError(error) };
+  }
+};
+
+export const makeUserAdmin = async (userId: string, isAdmin: boolean) => {
+  try {
+    await connectToDatabase();
+    const userToMakeAdmin = await User.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          role: isAdmin ? "admin" : "user",
+        },
+      },
+      { new: true }
+    );
+    if (userToMakeAdmin) {
       revalidatePath("/admin/users");
     }
   } catch (error) {

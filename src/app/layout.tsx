@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, Chakra_Petch, Rajdhani, Noto_Sans } from "next/font/google";
+import { Noto_Sans, Hind } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
 import Provider from "@/components/shared/Provider";
 
-// const chakra = Chakra_Petch({
-//   subsets: ["latin"],
-//   weight: ["300", "400", "700"],
-//   variable: "--font-chakra",
-// });
-
-const inter = Noto_Sans({
+const noto = Noto_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "700"],
-  variable: "--font-inter",
+  variable: "--font-noto",
+});
+const hind = Hind({
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+  variable: "--font-hind",
 });
 
 export const metadata: Metadata = {
@@ -36,7 +35,8 @@ export default function RootLayout({
         className={cn(
           "min-h-screen dark font-inter antialiased",
           // chakra.variable,
-          inter.variable
+          noto.variable,
+          hind.variable
         )}
       >
         <Provider>{children}</Provider>
