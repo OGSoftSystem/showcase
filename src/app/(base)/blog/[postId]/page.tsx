@@ -2,21 +2,61 @@ import SocialShare from "@/components/shared/SocialShare";
 import Wrapper from "@/components/shared/Wrapper";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { findPostById } from "@/lib/actions/post.actions";
+import { findAllPost, findPostById } from "@/lib/actions/post.actions";
 import { cleanText, formatDateTime, imgBaseUrl } from "@/lib/utils";
 import CommentForm from "../_components/CommentForm";
 import { notFound } from "next/navigation";
 import Likes from "../_components/Likes";
 import { auth } from "@/auth";
 import { LoadComments } from "../_components/Comment";
+import { cache } from "@/lib/cache";
+import { Metadata } from "next";
 // import PageHeading from "@/components/shared/PageHeading";
 
+type ParamsType = {
+  params: { postId: string };
+};
+
+// Cache every post for 24hrs
+const getPostById = cache(
+  async (postId: string): Promise<PostType> => {
+    return await findPostById(postId);
+  },
+  ["getPostById"],
+  { revalidate: 60 * 60 * 24 }
+);
+
+// Dynamic metadata
+export async function generateMetadata({
+  params: { postId },
+}: ParamsType): Promise<Metadata> {
+  const post: PostType = await getPostById(postId);
+
+  return {
+    title: post.title,
+    description: post.category,
+    openGraph: {
+      images: [{ url: post.imageUrl }],
+    },
+  };
+}
+
+// Fetches data at compile time and serves static html (prerender)
+export const generateStaticParams = async () => {
+  const posts: PostType[] = await findAllPost();
+
+  return posts.map((post) => ({ _id: post._id }));
+};
+
+// Main Component
 const PostPage = async ({
   params: { postId },
 }: {
   params: { postId: string };
 }) => {
-  if (postId == null) return notFound();
+  if (!/^[0-9a-fA-F]{24}$/.test(postId)) {
+    return notFound(); // ID is not in the correct format
+  }
 
   const session = await auth();
   const post: PostType = await findPostById(postId);

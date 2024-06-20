@@ -6,7 +6,12 @@ import { Separator } from "@/components/ui/separator";
 import PostThumbnail, { PostSkeleton } from "@/components/shared/PostThumbnail";
 import { Suspense } from "react";
 import { findAllPost, findAllPublishedPost } from "@/lib/actions/post.actions";
+import { Metadata } from "next";
 
+
+export const metadata: Metadata = {
+  title: "Blog",
+};
 const BlogPage = () => {
   return (
     <section className="mt-10 lg:mt-20">

@@ -1,7 +1,12 @@
 import Wrapper from "@/components/shared/Wrapper";
 import AuthForm from "@/components/shared/AuthForm";
 import Logo from "@/components/shared/Logo";
+import { Metadata } from "next";
 
+
+export const metadata: Metadata = {
+  title: "Sign Out",
+};
 const SignUp = () => {
   return (
     <section className="w-full">

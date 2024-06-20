@@ -1,8 +1,8 @@
-import { FaXTwitter, FaPeopleGroup } from "react-icons/fa6";
+import { FaXTwitter } from "react-icons/fa6";
 import { FaHome, FaBook, FaBurn, FaBlog } from "react-icons/fa";
 import { RiRoadMapLine } from "react-icons/ri";
 import { Newspaper, Users } from "lucide-react";
-import Link from "next/link";
+
 
 type Props = { label?: string; url: string; Icon?: any };
 export const NAV_LINKS: Props[] = [
@@ -12,7 +12,7 @@ export const NAV_LINKS: Props[] = [
     Icon: FaHome,
   },
   {
-    label: "Our-Story",
+    label: "Our Story",
     url: "/our-story",
     Icon: FaBook,
   },
@@ -26,16 +26,13 @@ export const NAV_LINKS: Props[] = [
     url: "/burn",
     Icon: FaBurn,
   },
-  {
-    label: "Blog",
-    url: "/blog",
-    Icon: FaBlog,
-  },
   // {
-  //   label: "Community",
-  //   url: "/community",
-  //   Icon: FaPeopleGroup,
+  //   label: "Blog",
+  //   url: "/blog",
+  //   Icon: FaBlog,
   // },
+  // {
+
   {
     label: "Twitter",
     url: "https://x.com/pulseliquity",

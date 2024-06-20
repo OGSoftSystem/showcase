@@ -6,7 +6,11 @@ import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { FaGoogle } from "react-icons/fa6";
 import { signInWithGoogle } from "@/lib/actions/nextAuth5.actions";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Sign In",
+};
 const SignIn = async () => {
   const session = await auth();
 

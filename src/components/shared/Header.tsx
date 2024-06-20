@@ -35,7 +35,7 @@ export async function Header() {
             <NavItems />
           </div>
 
-          <Pop user={user} />
+          {/* <Pop user={user} /> */}
 
           <div className="mmd:hidden ml-4">
             <MobileNav />

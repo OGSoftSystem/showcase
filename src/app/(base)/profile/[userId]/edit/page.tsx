@@ -1,7 +1,11 @@
 import EditUserProfileForm from "@/components/shared/EditUserProfileForm";
 import Wrapper from "@/components/shared/Wrapper";
 import { findUserById } from "@/lib/actions/user.actions";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Profile",
+};
 const UserProfilePage = async ({
   params: { userId },
 }: {

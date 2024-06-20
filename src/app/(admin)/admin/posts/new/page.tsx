@@ -1,9 +1,12 @@
 import Wrapper from "@/components/shared/Wrapper";
 import PostForm from "../../_components/PostForm";
 import PageHeading from "@/components/shared/PageHeading";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Posts",
+};
 export default async function NewPostPage() {
-  
   return (
     <section className="my-20">
       <Wrapper>

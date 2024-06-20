@@ -5,10 +5,30 @@ import Wrapper from "@/components/shared/Wrapper";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { NOTES } from "@/constants";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+// const fetchTokenDetail = async () => {
+//   try {
+//     const req = await fetch(
+//       `${process.env.PULSE_URL}${process.env.CONTRACT_ADDRESS}/transfers`
+//     );
+//     const data = await req.json();
+//     console.log(data);
+
+//     if (data) return data;
+//   } catch (error) {
+//     console.log(error);
+
+//     throw error;
+//   }
+// };
+
+export default async function Home() {
+  // const { data }: any = fetchTokenDetail();
+  // console.log(data);
+
   return (
     <>
       <section className="mt-28 xl:mt-40 relative">
@@ -36,7 +56,7 @@ export default function Home() {
 
           <div className="mt-12">
             <Link
-              href="https://piteas.io"
+              href="https://gopulse.com/token/pLUSD"
               target="_blank"
               className={buttonVariants({
                 size: "lg",
@@ -55,7 +75,8 @@ export default function Home() {
       <section className="my-20">
         <Wrapper>
           <Separator />
-          <h1 className="page-heading text-center">Learn More</h1>
+          <h1 className="page-heading-1 text-center">Learn More</h1>
+          <p className="page-heading-1_subtitle">Introduction</p>
           <div className="w-full h-auto flex justify-center">
             <p className="p-text max-w-4xl md:text-center ">
               pLUSD is a stablecoin on the PulseChain network, designed to reach
@@ -66,6 +87,11 @@ export default function Home() {
               utility. It aims to enhance scalability and user experience,
               supporting a more efficient blockchain ecosystem.
             </p>
+          </div>
+          <div className="flex justify-center w-full">
+            <Link href="/our-story" className="text-grad-1 hover:text-grad-2">
+              <ArrowRight />
+            </Link>
           </div>
         </Wrapper>
       </section>
@@ -107,7 +133,8 @@ export default function Home() {
       <section id="road-map" className="my-20 ">
         <Wrapper>
           {/* <Separator /> */}
-          <h1 className="page-heading text-center">Roadmaps</h1>
+          <h1 className="page-heading-1 text-center">Roadmaps</h1>
+          <p className="page-heading-1_subtitle">Follow us</p>
 
           <div className="flex flex-col justify-center items-center text-muted-foreground text-base pb-8 sm:text-lg">
             <RoadMap defaultColor="bg-ring" />
@@ -118,7 +145,8 @@ export default function Home() {
       <section id="faq" className="py-20 relative z-10">
         <Wrapper>
           <Separator />
-          <h1 className="page-heading text-center">Faq</h1>
+          <h1 className="page-heading-1 text-center">Faq</h1>
+          <p className="page-heading-1_subtitle">Good to know</p>
 
           <div className="flex w-full justify-center h-auto">
             <FaQAccordion />
@@ -130,7 +158,8 @@ export default function Home() {
       <section id="contact" className="py-20 relative z-10">
         <Wrapper>
           <Separator />
-          <h1 className="page-heading text-center">Contact</h1>
+          <h1 className="page-heading-1 text-center">Contact</h1>
+          <p className="page-heading-1_subtitle">Reach us</p>
 
           <div className="flex w-full justify-center h-auto">
             <ContactForm />

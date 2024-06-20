@@ -3,16 +3,21 @@ import { buttonVariants } from "@/components/ui/button";
 import { burnVideoLink } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
-import Iframe from "react-iframe";
 import { Separator } from "@/components/ui/separator";
-import {ExternalSite, BurnPageVideo} from "../../../components/shared/ExternalSite";
+import { ExternalSite, BurnPageVideo } from "./_components/ExternalSite";
+import { Metadata } from "next";
+import PageHeading from "@/components/shared/PageHeading";
 
+export const metadata: Metadata = {
+  title: "Burn",
+};
 const BurnPage = () => {
   return (
     <>
-      <section className="mt-10 lg:mt-20">
-        <Wrapper className="py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full items-center">
+      <section className="pt-20">
+        <Wrapper className="md:mb-10">
+          <PageHeading pageTitle="Burn" pageSubtitle="Learn about burning." />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full items-center mt-12">
             <div className="z-20 col-span-1 flex flex-col justify-center">
               <h1 className="text-3xl text-center lg:text-left lg:text-6xl font-bold ">
                 Welcome to the journey to burning
@@ -32,7 +37,7 @@ const BurnPage = () => {
                 href="#others"
                 className={buttonVariants({
                   variant: "default",
-                  className: "w-52 btn self-center lg:self-start mt-8",
+                  className: "w-52 btn self-center lg:self-start my-8",
                 })}
               >
                 Explore
@@ -57,12 +62,9 @@ const BurnPage = () => {
       <section>
         <Wrapper className="py-10" id="others">
           <div className="w-full">
-            <h1 className="page-heading my-4 mb-10">
-              We are currently at
-            </h1>
+            <h1 className="page-heading my-4 mb-10">We are currently at</h1>
             <ExternalSite />
           </div>
-
 
           <div className="w-full flex flex-col md:flex-row md:justify-between md:items-center my-20 gap-10 group">
             <Link
@@ -75,7 +77,6 @@ const BurnPage = () => {
             </Link>
 
             <BurnPageVideo />
-
           </div>
 
           <div className="w-full flex flex-col md:flex-row-reverse md:justify-between md:items-center gap-10 group my-20">

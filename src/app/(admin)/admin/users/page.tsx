@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import PageHeading from "@/components/shared/PageHeading";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Metadata } from "next";
 
 // const getUsers = cache(
 //   () => {
@@ -17,6 +18,9 @@ import Link from "next/link";
 //   { revalidate: 60 * 60 * 24 }
 // );
 
+export const metadata: Metadata = {
+  title: "Users",
+};
 const UsersPage = async () => {
   const users: UserType[] = await findAllUsers();
   if (users == null) return notFound();

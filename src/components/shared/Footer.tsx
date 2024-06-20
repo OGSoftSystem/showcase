@@ -23,7 +23,7 @@ const Footer = () => {
             <IconWrapper href="https://instagram.com/pulseliquity">
               <FaTelegram size={15} />
             </IconWrapper>
-            <IconWrapper href="https://instagram.com/pulseliquity">
+            <IconWrapper href="https://t.me/PulsechainLUSD/1">
               <FaInstagram size={15} />
             </IconWrapper>
           </div>
