@@ -74,7 +74,7 @@ html {
     @apply text-center mb-6 text-muted-foreground;
   }
   .p-text {
-    @apply text-[1.05rem] font-light leading-[1.7] text-grad-4 font-hind;
+    @apply text-[1.07rem] font-light leading-[1.7] text-grad-4 font-hind;
   }
   .auth-wrapper {
     @apply w-full flex flex-col h-screen items-center justify-center;

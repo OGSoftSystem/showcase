@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { ExternalSite, BurnPageVideo } from "./_components/ExternalSite";
 import { Metadata } from "next";
 import PageHeading from "@/components/shared/PageHeading";
+import { MotionDiv } from "@/components/shared/Motions";
 
 export const metadata: Metadata = {
   title: "Burn",
@@ -33,15 +34,26 @@ const BurnPage = () => {
               <span className="font-bold text-3xl">Pulsechain.</span>
             </span> */}
 
-              <Link
-                href="#others"
-                className={buttonVariants({
-                  variant: "default",
-                  className: "w-52 btn self-center lg:self-start my-8",
-                })}
+              <MotionDiv
+                whileHover={{
+                  scale: 1.05,
+                  transition: {
+                    type: "spring",
+                    duration: 3,
+                    damping: 3,
+                  },
+                }}
               >
-                Explore
-              </Link>
+                <Link
+                  href="#others"
+                  className={buttonVariants({
+                    variant: "default",
+                    className: "w-52 btn self-center lg:self-start my-8",
+                  })}
+                >
+                  Explore
+                </Link>
+              </MotionDiv>
             </div>
 
             <div className="relative w-[20rem] h-[20rem] md:w-[18rem] lg:w-[30rem] lg:h-[30rem] col-span-1 hidden md:block">

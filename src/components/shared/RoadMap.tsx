@@ -46,7 +46,7 @@ export default function RoadMap({ defaultColor }: { defaultColor: string }) {
 
               <div
                 className={cn(
-                  "size-[40px] rounded-full md:flex items-center justify-center relative overflow-hidden",
+                  "size-[40px] rounded-full md:flex items-center justify-center relative overflow-hidden hover:bg-grad-3 ease-in duration-300",
                   color
                 )}
               >

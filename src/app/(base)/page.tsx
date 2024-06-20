@@ -1,5 +1,6 @@
 import ContactForm from "@/components/shared/ContactForm";
 import FaQAccordion from "@/components/shared/FaqAccordion";
+import { MotionDiv } from "@/components/shared/Motions";
 import RoadMap from "@/components/shared/RoadMap";
 import Wrapper from "@/components/shared/Wrapper";
 import { buttonVariants } from "@/components/ui/button";
@@ -29,32 +30,57 @@ export default async function Home() {
   // const { data }: any = fetchTokenDetail();
   // console.log(data);
 
+  // const buttonVariant = {
+  //   initial: 1,
+  //   animate: {
+  //     scale: 1.1,
+  //     transition: {
+  //       type: "spring",
+  //       duration: 0.3,
+  //     },
+  //   },
+  //   exit: 1,
+  // };
+
   return (
     <>
       <section className="mt-28 xl:mt-40 relative">
         <Wrapper className="flex flex-col items-center h-auto justify-center">
           <h1 className="text-5xl leading-[1.2] md:leading-[1.3] md:text-7xl lg:leading-[1] xl:text-8xl font-bold text-white text-center font-inter max-w-prose tracking-tight uppercase">
-            Liquity <span className="lowercase text-grad-2">on</span>{" "}
+            Liquity{" "}
+            <span className="lowercase bg-gradient-to-tr from-grad-2 to-70% to-grad-3  bg-clip-text text-transparent">
+              on
+            </span>{" "}
             Pulsechain.
           </h1>
           <br className="md:hidden" />
           <h1 className="text-2xl md:mt-6 lg:mt-8 md:text-4xl xl:text-6xl font-bold text-grad-1 text-center xl:leading-tight tracking-tight font-hind">
             The King of pStables.
           </h1>
-          <p className="text-sm md:text-lg lg:text-xl font-light text-white mt-1 font-hind">
+          <div className="text-sm md:text-lg lg:text-xl font-light text-white mt-1 font-hind">
             Join The Future Stablecoin Movement.
-          </p>
+          </div>
 
           <Image
             src="/assets/icons/logo1.png"
             width={250}
             height={250}
             alt="site_logo"
-            className="mt-10 shrink-0"
+            className="mt-10 shrink-0 object-contain hover:scale-105 cursor-pointer ease-in-out duration-300"
             priority
           />
 
-          <div className="mt-12">
+          <MotionDiv
+            className="mt-12"
+            whileHover={{
+              scale: 1.05,
+              transition: {
+                type: "spring",
+                duration: 3,
+                damping: 3,
+              },
+            }}
+          >
             <Link
               href="https://gopulse.com/token/pLUSD"
               target="_blank"
@@ -65,7 +91,7 @@ export default async function Home() {
             >
               Buy pLUSD
             </Link>
-          </div>
+          </MotionDiv>
         </Wrapper>
 
         <div className="absolute blur-[100px] top-20 size-[280px] md:top-16 md:right-5 bg-gradient-to-tr from-grad-3 to-70% via-grad-2 to-grad-1 md:blur-[150px] md:size-2/4 rounded-full -z-10" />
@@ -89,7 +115,10 @@ export default async function Home() {
             </p>
           </div>
           <div className="flex justify-center w-full">
-            <Link href="/our-story" className="text-grad-1 hover:text-grad-2">
+            <Link
+              href="/our-story"
+              className="text-grad-1 hover:text-grad-2 hover:translate-x-2 transition-all duration-300 ease-in mt-2"
+            >
               <ArrowRight />
             </Link>
           </div>
@@ -101,7 +130,15 @@ export default async function Home() {
 
         <Wrapper className="grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 md:gap-16 gap-8">
           {NOTES.map((note) => (
-            <div
+            <MotionDiv
+              whileInView={{
+                x: [300, 0],
+                opacity: [0, 1],
+              }}
+              transition={{
+                type: "spring",
+                duration: 0.7,
+              }}
               key={note.title}
               className="z-10 space-y-4 flex flex-col h-auto items-center hover:bg-grad-2/10 p-4 rounded-md transition-all duration-300 ease-in"
             >
@@ -124,7 +161,7 @@ export default async function Home() {
               </Link> */}
 
               <Separator className="md:hidden" />
-            </div>
+            </MotionDiv>
           ))}
         </Wrapper>
       </section>
@@ -134,7 +171,7 @@ export default async function Home() {
         <Wrapper>
           {/* <Separator /> */}
           <h1 className="page-heading-1 text-center">Roadmaps</h1>
-          <p className="page-heading-1_subtitle">Follow us</p>
+          <p className="page-heading-1_subtitle">Follow our journey</p>
 
           <div className="flex flex-col justify-center items-center text-muted-foreground text-base pb-8 sm:text-lg">
             <RoadMap defaultColor="bg-ring" />
@@ -161,9 +198,17 @@ export default async function Home() {
           <h1 className="page-heading-1 text-center">Contact</h1>
           <p className="page-heading-1_subtitle">Reach us</p>
 
-          <div className="flex w-full justify-center h-auto">
+          <MotionDiv
+            whileInView={{
+              y: [200, 0],
+              transition: {
+                duration: 0.3,
+              },
+            }}
+            className="flex w-full justify-center h-auto"
+          >
             <ContactForm />
-          </div>
+          </MotionDiv>
         </Wrapper>
         <div className="absolute top-48 right-5 blur-[140px] size-[200px] md:top-20 md:right-5 bg-gradient-to-tr from-grad-1 to-70% via-grad-3 to-grad-2 md:blur-[170px] md:size-2/6 rounded-full -z-10" />
       </section>

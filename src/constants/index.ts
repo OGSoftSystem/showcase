@@ -3,7 +3,6 @@ import { FaHome, FaBook, FaBurn, FaBlog } from "react-icons/fa";
 import { RiRoadMapLine } from "react-icons/ri";
 import { Newspaper, Users } from "lucide-react";
 
-
 type Props = { label?: string; url: string; Icon?: any };
 export const NAV_LINKS: Props[] = [
   {
@@ -18,7 +17,7 @@ export const NAV_LINKS: Props[] = [
   },
   {
     label: "RoadMap",
-    url: "#road-map",
+    url: "/?#road-map",
     Icon: RiRoadMapLine,
   },
   {

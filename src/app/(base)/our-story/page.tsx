@@ -3,7 +3,6 @@ import Wrapper from "@/components/shared/Wrapper";
 import { Metadata } from "next";
 import Image from "next/image";
 
-
 export const metadata: Metadata = {
   title: "Our Story",
 };
@@ -29,7 +28,7 @@ const OurStoryPage = () => {
           Bringing Tellor&apos;s Decentralized Oracle to PulseChain.
         </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div>
             <p className={paragraph}>
               We are a group of dedicated community members from the PulseChain
