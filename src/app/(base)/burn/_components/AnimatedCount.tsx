@@ -17,7 +17,7 @@ export const AnimatedCount = ({ end }: { end: number }) => {
   }, [end]);
 
   return (
-    <div className="flex flex-col md:flex-row items-center gap-2">
+    <div className="flex flex-col md:flex-row items-center md:space-x-6 lg:space-x-10">
       <CountUp
         start={0}
         end={value}
@@ -38,13 +38,13 @@ export const AnimatedCount = ({ end }: { end: number }) => {
 };
 
 const BurnChart = ({ end }: { end: number }) => {
-  const totalBurnPercentage: number = 95;
+  const totalBurnPercentage: number = 99;
   const currentBurnPercentage =
     (end / totalBurnPercentage) * totalBurnPercentage;
   const percentageLeft = totalBurnPercentage - currentBurnPercentage;
 
   const data = {
-    labels: ["Burned", "Left"],
+    labels: ["Burned", "Available"],
     datasets: [
       {
         label: "Burn Percentage",
@@ -62,12 +62,8 @@ const BurnChart = ({ end }: { end: number }) => {
     },
   };
   return (
-    <>
-      <Doughnut
-        data={data}
-        options={options}
-        className="size-4 md:size-5 lg:size-6 mt-10 md:mt-0"
-      />
-    </>
+    <div className="size-60 lg:size-96">
+      <Doughnut data={data} options={options} className="mt-10 md:mt-0" />
+    </div>
   );
 };

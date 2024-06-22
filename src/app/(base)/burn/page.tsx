@@ -3,19 +3,53 @@ import { buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import { ExternalSite, BurnPageVideo } from "./_components/ExternalSite";
+import { BurnPageVideo } from "./_components/ExternalSite";
 import { Metadata } from "next";
 import PageHeading from "@/components/shared/PageHeading";
 import { MotionDiv } from "@/components/shared/Motions";
 import { AnimatedCount } from "./_components/AnimatedCount";
 import { CustomImage } from "@/components/shared/CustomImage";
+import { cache } from "@/lib/cache";
 
 export const metadata: Metadata = {
   title: "Burn",
 };
-const BurnPage = () => {
+
+const getTokenHolders = async () => {
+  try {
+    const holders = await fetch(
+      `https://api.scan.pulsechain.com/api/v2/tokens/${process.env.CONTRACT_ADDRESS}/holders`
+    );
+    const data = await holders.json();
+
+    if (!data) console.log("Error fetching token details.");
+
+    return {
+      amountBurned: data.items[0].value,
+      totalSupply: data.items[0].token.total_supply,
+    };
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Cache response from api for 1 day before revalidating data
+const getTokenDetail = cache(
+  async () => {
+    return await getTokenHolders();
+  },
+  ["getTokenDetail"],
+  { revalidate: 60 * 60 * 24 }
+);
+
+const BurnPage = async () => {
+  const { amountBurned, totalSupply } = await getTokenDetail();
+
   const extImage =
     "https://crapforcrypto.com/wp-content/uploads/2021/09/Pulse-Wallpaper-28-.jpg";
+
+  const burnPercentage = (amountBurned / totalSupply) * 100;
+
   return (
     <>
       <section className="pt-20">
@@ -61,7 +95,10 @@ const BurnPage = () => {
             </div>
 
             <div className="relative w-[20rem] h-[20rem] md:w-[18rem] lg:w-[30rem] lg:h-[30rem] col-span-1 hidden md:block">
-              <CustomImage ext={extImage} local="/assets/icons/logo1.png" />
+              <CustomImage
+                externalUrl={extImage}
+                local="/assets/icons/logo1.png"
+              />
 
               <div className="w-[20rem] h-[20rem] md:w-[18rem] lg:w-[30rem] lg:h-[30rem] absolute bg-grad-2/30 -z-10 -top-4 -right-4" />
             </div>
@@ -76,7 +113,7 @@ const BurnPage = () => {
             <h1 className="page-heading-2 my-4 mb-10">We are currently at</h1>
             {/* <ExternalSite /> */}
             <div className="w-full flex justify-center space-x-2">
-              <AnimatedCount end={4.2} />
+              <AnimatedCount end={burnPercentage} />
             </div>
           </div>
 

@@ -20,7 +20,7 @@ const OurStoryPage = () => {
           pageSubtitle="A little bit on our journey."
         />
         <div className="w-[100%] h-[200px] md:h-[400px] relative overflow-hidden">
-          <CustomImage ext={extImage} local="/assets/icons/logo1.png" />
+          <CustomImage externalUrl={extImage} local="/assets/icons/logo1.png" />
         </div>
 
         <h1 className="page-heading">

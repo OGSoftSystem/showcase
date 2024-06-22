@@ -20,10 +20,10 @@ const Footer = () => {
             <IconWrapper href="https://x.com/pulseliquity">
               <FaXTwitter size={15} />
             </IconWrapper>
-            <IconWrapper href="https://instagram.com/pulseliquity">
+            <IconWrapper href="https://t.me/PulsechainLUSD/1">
               <FaTelegram size={15} />
             </IconWrapper>
-            <IconWrapper href="https://t.me/PulsechainLUSD/1">
+            <IconWrapper href="https://instagram.com/pulseliquity">
               <FaInstagram size={15} />
             </IconWrapper>
           </div>

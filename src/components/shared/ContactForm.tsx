@@ -17,7 +17,6 @@ import { sendMessage } from "@/lib/actions/email.actions";
 import { ContactSchema, ContactType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MessageCircle, X } from "lucide-react";
-import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useToast } from "../ui/use-toast";
@@ -54,9 +53,10 @@ const ContactForm = ({ className }: { className?: string }) => {
       title: "Message sent successfully.",
       description: "We will get back to you shortly. Thank you.",
       variant: "default",
-      className: "bg-green-400 text-white",
+      className: "bg-[#1967FE] text-white",
     });
     form.reset();
+    setToggled(false);
   };
 
   return (
