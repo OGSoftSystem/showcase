@@ -12,7 +12,7 @@ const Footer = () => {
         <Separator />
         <div className="flex items-center justify-between py-4">
           <div className="flex space-x-2 items-center">
-            <Logo width={50} height={50} />
+            <Logo width={40} height={40} />
             <p className="font-bold">pLUSD</p>
           </div>
 

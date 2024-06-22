@@ -1,6 +1,5 @@
 import Wrapper from "@/components/shared/Wrapper";
 import { buttonVariants } from "@/components/ui/button";
-import { burnVideoLink } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
@@ -8,11 +7,15 @@ import { ExternalSite, BurnPageVideo } from "./_components/ExternalSite";
 import { Metadata } from "next";
 import PageHeading from "@/components/shared/PageHeading";
 import { MotionDiv } from "@/components/shared/Motions";
+import { AnimatedCount } from "./_components/AnimatedCount";
+import { CustomImage } from "@/components/shared/CustomImage";
 
 export const metadata: Metadata = {
   title: "Burn",
 };
 const BurnPage = () => {
+  const extImage =
+    "https://crapforcrypto.com/wp-content/uploads/2021/09/Pulse-Wallpaper-28-.jpg";
   return (
     <>
       <section className="pt-20">
@@ -43,6 +46,7 @@ const BurnPage = () => {
                     damping: 3,
                   },
                 }}
+                className="self-center lg:self-start"
               >
                 <Link
                   href="#others"
@@ -57,12 +61,7 @@ const BurnPage = () => {
             </div>
 
             <div className="relative w-[20rem] h-[20rem] md:w-[18rem] lg:w-[30rem] lg:h-[30rem] col-span-1 hidden md:block">
-              <Image
-                src="https://crapforcrypto.com/wp-content/uploads/2021/09/Pulse-Wallpaper-28-.jpg"
-                fill
-                priority
-                alt="banner"
-              />
+              <CustomImage ext={extImage} local="/assets/icons/logo1.png" />
 
               <div className="w-[20rem] h-[20rem] md:w-[18rem] lg:w-[30rem] lg:h-[30rem] absolute bg-grad-2/30 -z-10 -top-4 -right-4" />
             </div>
@@ -74,8 +73,11 @@ const BurnPage = () => {
       <section>
         <Wrapper className="py-10" id="others">
           <div className="w-full">
-            <h1 className="page-heading my-4 mb-10">We are currently at</h1>
-            <ExternalSite />
+            <h1 className="page-heading-2 my-4 mb-10">We are currently at</h1>
+            {/* <ExternalSite /> */}
+            <div className="w-full flex justify-center space-x-2">
+              <AnimatedCount end={4.2} />
+            </div>
           </div>
 
           <div className="w-full flex flex-col md:flex-row md:justify-between md:items-center my-20 gap-10 group">
@@ -83,7 +85,7 @@ const BurnPage = () => {
               href={
                 "https://www.youtube.com/embed/PxWh__9ttN4?si=I4ySVBvZ0QYieG2d"
               }
-              className="page-heading group-hover:text-grad-1"
+              className="page-heading-2 group-hover:text-grad-1"
             >
               How StayBULL works and how to burn pLUSD
             </Link>
@@ -95,14 +97,15 @@ const BurnPage = () => {
             <div>
               <Link
                 href={"https://staybull.giffordwear.win/"}
-                className="page-heading group-hover:text-grad-1"
+                target="_blank"
+                className="page-heading-2 group-hover:text-grad-1"
               >
                 Connect your wallet and try StayBull.
               </Link>
             </div>
 
             <div className="w-full h-[200px] md:w-[480px] md:h-[300px] relative overflow-hidden">
-              <Link href={"https://staybull.giffordwear.win/"}>
+              <Link href={"https://staybull.giffordwear.win/"} target="_blank">
                 <Image
                   src="/assets/images/stay_bull.png"
                   alt="stay_bull_page"

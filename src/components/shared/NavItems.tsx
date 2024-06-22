@@ -11,7 +11,7 @@ export const NavItems = ({ className }: { className?: string }) => {
   return (
     <nav
       className={cn(
-        "hidden mmd:flex items-center justify-center w-fit h-auto shadow-lg rounded-[2rem] py-2 px-8 mt-2 bg-[#21104b]",
+        "hidden md:flex items-center justify-center w-fit h-auto shadow-lg rounded-[2rem] py-2 px-8 mt-2 bg-[#21104b]",
         className
       )}
     >

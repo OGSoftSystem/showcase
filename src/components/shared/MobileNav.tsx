@@ -19,14 +19,14 @@ export const MobileNav = () => {
         </SheetHeader>
       </SheetTrigger>
       <SheetContent>
-        <nav className="flex flex-col justify-between h-full mmd:hidden">
+        <nav className="flex flex-col justify-between h-full md:hidden">
           <div className="flex flex-col space-y-4 mt-10">
             {NAV_LINKS.map((link) => (
               <SheetClose key={link.label} asChild>
                 <NavLink href={link.url}>
                   <div className="flex space-x-4 items-center">
                     <span>{link.Icon && <link.Icon size={22} />}</span>
-                    <p className="text-sm mmd:text-[0.55rem] lg:[0.75rem] lg:block">
+                    <p className="text-sm md:text-[0.55rem] lg:[0.75rem] lg:block">
                       {" "}
                       {link.label}
                     </p>

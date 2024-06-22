@@ -27,8 +27,8 @@ export async function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <Wrapper>
-        <div className="w-full flex items-center justify-between h-16 mmd:h-auto">
-          <Logo width={32} height={32} className="object-contain mmd:hidden" />
+        <div className="w-full flex items-center justify-between h-16 md:h-auto">
+          <Logo width={32} height={32} className="object-contain md:hidden" />
 
           {/* Desktop */}
           <div className="flex items-center justify-center w-full">
@@ -37,7 +37,7 @@ export async function Header() {
 
           {/* <Pop user={user} /> */}
 
-          <div className="mmd:hidden ml-4">
+          <div className="md:hidden ml-4">
             <MobileNav />
           </div>
         </div>

@@ -13,16 +13,17 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { Textarea } from "@/components/ui/textarea";
+import { sendMessage } from "@/lib/actions/email.actions";
 import { ContactSchema, ContactType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MessageCircle, X } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useToast } from "../ui/use-toast";
 
 const ContactForm = ({ className }: { className?: string }) => {
-  const { data: session } = useSession();
+  const { toast } = useToast();
 
   const initialValue = {
     name: "",
@@ -36,10 +37,26 @@ const ContactForm = ({ className }: { className?: string }) => {
   });
 
   const [toggled, setToggled] = useState(false);
-  const router = useRouter();
 
   const onSubmitForm = async (data: ContactType) => {
-    console.log(data);
+    const message = await sendMessage(data);
+    if (message?.error) {
+      console.log(message.error);
+      toast({
+        title: "An error occurred.",
+        description: message.error,
+        variant: "destructive",
+        className: "bg-red-400 text-white",
+      });
+    }
+
+    toast({
+      title: "Message sent successfully.",
+      description: "We will get back to you shortly. Thank you.",
+      variant: "default",
+      className: "bg-green-400 text-white",
+    });
+    form.reset();
   };
 
   return (

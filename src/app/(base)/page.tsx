@@ -101,8 +101,8 @@ export default async function Home() {
       <section className="my-20">
         <Wrapper>
           <Separator />
-          <h1 className="page-heading-1 text-center">Learn More</h1>
-          <p className="page-heading-1_subtitle">Introduction</p>
+          <LandingPageHeading title="Learn More" subtitle="Introduction" />
+
           <div className="w-full h-auto flex justify-center">
             <p className="p-text max-w-4xl md:text-center ">
               pLUSD is a stablecoin on the PulseChain network, designed to reach
@@ -170,8 +170,7 @@ export default async function Home() {
       <section id="road-map" className="my-20 ">
         <Wrapper>
           {/* <Separator /> */}
-          <h1 className="page-heading-1 text-center">Roadmaps</h1>
-          <p className="page-heading-1_subtitle">Follow our journey</p>
+          <LandingPageHeading title="Roadmaps" subtitle="Follow our journey" />
 
           <div className="flex flex-col justify-center items-center text-muted-foreground text-base pb-8 sm:text-lg">
             <RoadMap defaultColor="bg-ring" />
@@ -182,8 +181,7 @@ export default async function Home() {
       <section id="faq" className="py-20 relative z-10">
         <Wrapper>
           <Separator />
-          <h1 className="page-heading-1 text-center">Faq</h1>
-          <p className="page-heading-1_subtitle">Good to know</p>
+          <LandingPageHeading title="Faq" subtitle="Good to know" />
 
           <div className="flex w-full justify-center h-auto">
             <FaQAccordion />
@@ -195,8 +193,7 @@ export default async function Home() {
       <section id="contact" className="py-20 relative z-10">
         <Wrapper>
           <Separator />
-          <h1 className="page-heading-1 text-center">Contact</h1>
-          <p className="page-heading-1_subtitle">Reach us</p>
+          <LandingPageHeading title="Contact" subtitle="Reach us" />
 
           <MotionDiv
             whileInView={{
@@ -212,6 +209,21 @@ export default async function Home() {
         </Wrapper>
         <div className="absolute top-48 right-5 blur-[140px] size-[200px] md:top-20 md:right-5 bg-gradient-to-tr from-grad-1 to-70% via-grad-3 to-grad-2 md:blur-[170px] md:size-2/6 rounded-full -z-10" />
       </section>
+    </>
+  );
+}
+
+function LandingPageHeading({
+  title,
+  subtitle,
+}: {
+  title: string;
+  subtitle: string;
+}) {
+  return (
+    <>
+      <h1 className="page-heading-1 text-center">{title}</h1>
+      <p className="page-heading-1_subtitle">{subtitle}</p>
     </>
   );
 }

@@ -1,3 +1,4 @@
+import { CustomImage } from "@/components/shared/CustomImage";
 import PageHeading from "@/components/shared/PageHeading";
 import Wrapper from "@/components/shared/Wrapper";
 import { Metadata } from "next";
@@ -8,6 +9,9 @@ export const metadata: Metadata = {
 };
 const OurStoryPage = () => {
   const paragraph = "p-text max-w-prose md:text-justify";
+  const extImage =
+    "https://ll-blog-dev.s3.ap-southeast-2.amazonaws.com/wp-content/uploads/2023/03/19052842/Tellor-Oracle-TRB-Token-1024x576.webp";
+
   return (
     <section>
       <Wrapper className="py-20">
@@ -16,12 +20,7 @@ const OurStoryPage = () => {
           pageSubtitle="A little bit on our journey."
         />
         <div className="w-[100%] h-[200px] md:h-[400px] relative overflow-hidden">
-          <Image
-            src="https://ll-blog-dev.s3.ap-southeast-2.amazonaws.com/wp-content/uploads/2023/03/19052842/Tellor-Oracle-TRB-Token-1024x576.webp"
-            fill
-            alt="Tellor"
-            className="object-center object-cover"
-          />
+          <CustomImage ext={extImage} local="/assets/icons/logo1.png" />
         </div>
 
         <h1 className="page-heading">
