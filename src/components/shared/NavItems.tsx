@@ -29,14 +29,14 @@ export const NavItems = ({ className }: { className?: string }) => {
             </div>
           </NavLink>
         ))}
-
       </div>
-
     </nav>
   );
 };
 
 export const AdminNavItems = ({ className }: { className?: string }) => {
+  const pathname = usePathname();
+
   return (
     <nav
       className={cn(
@@ -47,8 +47,14 @@ export const AdminNavItems = ({ className }: { className?: string }) => {
       <Logo width={30} height={30} className="mr-4" />
 
       <div className="flex items-center">
-        {NAV_LINKS.slice(0,1).map((link) => (
-          <NavLink key={link.label} href={link.url}>
+        {NAV_LINKS.slice(0, 1).map((link) => (
+          <NavLink
+            key={link.label}
+            href={link.url}
+            target={
+              pathname.includes("https://x.com/pulseliquity") ? "_blank" : "_self"
+            }
+          >
             <div className="flex flex-col items-center">
               <span>{link.Icon && <link.Icon size={20} />}</span>
               <p className="text-sm md:text-[0.55rem] lg:[0.75rem]">
@@ -62,8 +68,6 @@ export const AdminNavItems = ({ className }: { className?: string }) => {
     </nav>
   );
 };
-
-
 
 export function NavLink(props: Omit<ComponentProps<typeof Link>, "className">) {
   const pathname = usePathname();

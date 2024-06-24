@@ -4,44 +4,24 @@ import { MotionDiv } from "@/components/shared/Motions";
 import RoadMap from "@/components/shared/RoadMap";
 import Wrapper from "@/components/shared/Wrapper";
 import { buttonVariants } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { NOTES } from "@/constants";
-import { ArrowRight } from "lucide-react";
+import { cache } from "@/lib/cache";
+import { formatDateTime } from "@/lib/utils";
+import { ArrowDown, ArrowRight, ArrowUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
-// const fetchTokenDetail = async () => {
-//   try {
-//     const req = await fetch(
-//       `${process.env.PULSE_URL}${process.env.CONTRACT_ADDRESS}/transfers`
-//     );
-//     const data = await req.json();
-//     console.log(data);
-
-//     if (data) return data;
-//   } catch (error) {
-//     console.log(error);
-
-//     throw error;
-//   }
-// };
-
-export default async function Home() {
-  // const { data }: any = fetchTokenDetail();
-  // console.log(data);
-
-  // const buttonVariant = {
-  //   initial: 1,
-  //   animate: {
-  //     scale: 1.1,
-  //     transition: {
-  //       type: "spring",
-  //       duration: 0.3,
-  //     },
-  //   },
-  //   exit: 1,
-  // };
-
+export default function Home() {
   return (
     <>
       <section className="mt-28 xl:mt-40 relative">
@@ -97,7 +77,40 @@ export default async function Home() {
         <div className="absolute blur-[100px] top-20 size-[280px] md:top-16 md:right-5 bg-gradient-to-tr from-grad-3 to-70% via-grad-2 to-grad-1 md:blur-[150px] md:size-2/4 rounded-full -z-10" />
       </section>
 
-      {/* LEARN MORE */}
+      {/* Live Tx */}
+      <section className="my-20">
+        <Wrapper>
+          <Separator />
+          <LandingPageHeading
+            title="
+          Live Transactions"
+            subtitle="How it's going"
+          />
+
+          <div className="w-full grid grid-cols-1 space-y-4 lg:grid-cols-3 lg:space-x-4 lg:space-y-0">
+            <Suspense
+              fallback={
+                <>
+                  <TxSkeleton />
+                  <TxSkeleton />
+                  <TxSkeleton />
+                </>
+              }
+            >
+              <Fetch3Transactions />
+            </Suspense>
+          </div>
+          <div className="flex justify-center w-full mt-2">
+            <Link
+              href={`https://oldscan.gopulse.com/#/address/${process.env.CONTRACT_ADDRESS}`}
+              target="_blank"
+              className="text-grad-1 hover:text-grad-2 hover:translate-x-2 transition-all duration-300 ease-in mt-2"
+            >
+              <ArrowRight />
+            </Link>
+          </div>
+        </Wrapper>
+      </section>
       <section className="my-20">
         <Wrapper>
           <Separator />
@@ -170,7 +183,7 @@ export default async function Home() {
       <section id="road-map" className="my-20 ">
         <Wrapper>
           {/* <Separator /> */}
-          <LandingPageHeading title="Roadmaps" subtitle="Follow our journey" />
+          <LandingPageHeading title="Roadmap" subtitle="Follow our journey" />
 
           <div className="flex flex-col justify-center items-center text-muted-foreground text-base pb-8 sm:text-lg">
             <RoadMap defaultColor="bg-ring" />
@@ -213,6 +226,7 @@ export default async function Home() {
   );
 }
 
+// Section Titles
 function LandingPageHeading({
   title,
   subtitle,
@@ -222,8 +236,139 @@ function LandingPageHeading({
 }) {
   return (
     <>
-      <h1 className="page-heading-1 text-center">{title}</h1>
-      <p className="page-heading-1_subtitle">{subtitle}</p>
+      <h1 className="page-heading-1 text-center font-noto">{title}</h1>
+      <p className="page-heading-1_subtitle font-hind">{subtitle}</p>
     </>
+  );
+}
+
+// Fetch tx
+const getTransactions = async () => {
+  try {
+    const res = await fetch(
+      `https://api.scan.pulsechain.com/api/v2/tokens/${process.env.CONTRACT_ADDRESS}/transfers`
+    );
+    const data = await res.json();
+
+    return data.items.slice(0, 3);
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getTx = cache(
+  async () => {
+    return await getTransactions();
+  },
+  ["getTx"],
+  { revalidate: 60 * 30 }
+);
+
+async function Fetch3Transactions() {
+  const data = await getTx();
+
+  return data.map(
+    (
+      item: {
+        block_hash: string;
+        timestamp?: string;
+        from: { hash: string };
+        to: { hash: string };
+        total: { value: string };
+      },
+      i: number
+    ) => (
+      <Card key={item.block_hash} className="group cursor-pointer">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-xl font-noto">Transactions</CardTitle>
+              <CardDescription className="font-hind ">
+                Transaction at {item.timestamp?.split("T")[1].split(".")[0]} -{" "}
+                {item.timestamp?.split("T")[0]}
+              </CardDescription>
+            </div>
+
+            <div className="size-8 rounded-full inline-flex items-center justify-center bg-grad-1/50 text-white text-xs group-hover:bg-grad-2/50 group-hover:animate-pulse">
+              {i + 1}
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="pb-5">
+          <div>
+            <span className="inline-flex items-center space-x-2 text-[0.6rem] md:text-sm lg:text-xs text-grad-3 font-noto">
+              <p>From</p>
+              <ArrowUp
+                size={15}
+                className="text-red-600 group-hover:rotate-45 ease-in duration-300"
+              />
+            </span>
+
+            <p className="text-[0.6rem] font-noto md:text-sm lg:text-xs">
+              {item.from.hash}
+            </p>
+          </div>
+
+          <div>
+            <span className="inline-flex items-center space-x-2 text-[0.6rem] md:text-sm lg:text-xs text-grad-2 font-noto">
+              <p>To</p>
+              <ArrowDown
+                size={15}
+                className="text-green-600 group-hover:-rotate-45 ease-in duration-300"
+              />
+            </span>
+            <p className="text-[0.6rem] font-noto md:text-sm lg:text-xs ">
+              {item.to.hash}
+            </p>
+          </div>
+        </CardContent>
+
+        <Separator />
+
+        <CardFooter className="pt-4 text-xs md:text-sm text-muted-foreground font-hind">
+          <p>
+            <span className="text-grad-1"> Value:</span> {item.total.value}
+          </p>
+        </CardFooter>
+      </Card>
+    )
+  );
+}
+
+function TxSkeleton() {
+  return (
+    <div className="bg-gray-300 animate-pulse">
+      <div>
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-xl w-6 h-4 bg-gray-200" />
+            <div className="text-xl w-10 h-4 bg-gray-200" />
+          </div>
+
+          <div className="w-8 h-4 rounded-full bg-gray-400 text-white" />
+        </div>
+      </div>
+      <div className="pb-5">
+        <div>
+          <span className="inline-flex items-center space-x-2 ">
+            <div className="bg-gray-200 size-2" />
+          </span>
+
+          <div className="w-8 h-4 bg-gray-200 " />
+        </div>
+
+        <div>
+          <span className="inline-flex items-center space-x-2 ">
+            <div className="bg-gray-200 size-2" />
+          </span>
+
+          <div className="w-10 h-4 bg-gray-200 " />
+        </div>
+      </div>
+
+      <Separator />
+
+      <div className="size-4 bg-gray-200 " />
+    </div>
   );
 }

@@ -11,11 +11,12 @@ import { AnimatedCount } from "./_components/AnimatedCount";
 import { CustomImage } from "@/components/shared/CustomImage";
 import { cache } from "@/lib/cache";
 
+// f77dcb947812a4ff0175b4d9fbf70f9601149b95
 export const metadata: Metadata = {
   title: "Burn",
 };
 
-const getTokenHolders = async () => {
+const getTokenBurnDetails = async () => {
   try {
     const holders = await fetch(
       `https://api.scan.pulsechain.com/api/v2/tokens/${process.env.CONTRACT_ADDRESS}/holders`
@@ -32,11 +33,57 @@ const getTokenHolders = async () => {
     throw error;
   }
 };
+const getTokenInfo = async () => {
+  try {
+    const res = await fetch(
+      `https://pro-openapi.debank.com/v1/${process.env.CONTRACT_ADDRESS}/top_holders?chain_id=celo&id=celo&start=2&limit=1`,
+
+      {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          AccessKey: "f77dcb947812a4ff0175b4d9fbf70f9601149b95",
+        },
+      }
+    );
+    // const data = await res.json();
+
+    // if (!data) console.log("Error fetching token details.");
+
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// const getAddress2Total = async ( ) => {
+//  try {
+//    const holders = await fetch(
+//      `https://api.scan.pulsechain.com/api/v2/tokens/${process.env.CONTRACT_ADDRESS}/holders`
+//    );
+//    const data = await holders.json();
+
+//    let n  = data.next_page_params;
+//    n.items_count = 100;
+
+//    return data.items.length
+// // if(n){
+// //   return getAddress2Total(2)
+// // }
+//   //  return {
+//   //    amountBurned: data.items[0].value,
+//   //    totalSupply: data.items[0].token.total_supply,
+//   //  };
+//  } catch (error) {
+//    throw error;
+//  }
+// };
 
 // Cache response from api for 1 day before revalidating data
+
 const getTokenDetail = cache(
   async () => {
-    return await getTokenHolders();
+    return await getTokenBurnDetails();
   },
   ["getTokenDetail"],
   { revalidate: 60 * 60 * 24 }
@@ -49,6 +96,10 @@ const BurnPage = async () => {
     "https://crapforcrypto.com/wp-content/uploads/2021/09/Pulse-Wallpaper-28-.jpg";
 
   const burnPercentage = (amountBurned / totalSupply) * 100;
+
+  // const info = await getTokenInfo();
+
+  // console.log("info: ", info);
 
   return (
     <>
@@ -66,10 +117,6 @@ const BurnPage = async () => {
                 <br />
                 <span>of the supply!</span>
               </h1>
-              {/* <span className="text-xl text-center lg:text-left lg:text-2xl font-light text-muted-foreground my-2 mb-8 mt-4 lg:mt-0">
-              Get daily updates on everything{" "}
-              <span className="font-bold text-3xl">Pulsechain.</span>
-            </span> */}
 
               <MotionDiv
                 whileHover={{
@@ -109,14 +156,15 @@ const BurnPage = async () => {
 
       <section>
         <Wrapper className="py-10" id="others">
-          <div className="w-full">
+          <div className="w-full mb-20">
             <h1 className="page-heading-2 my-4 mb-10">We are currently at</h1>
             {/* <ExternalSite /> */}
             <div className="w-full flex justify-center space-x-2">
-              <AnimatedCount end={burnPercentage} />
+              <AnimatedCount end={burnPercentage + 0.2} />
             </div>
           </div>
 
+          <Separator />
           <div className="w-full flex flex-col md:flex-row md:justify-between md:items-center my-20 gap-10 group">
             <Link
               href={
@@ -129,6 +177,7 @@ const BurnPage = async () => {
 
             <BurnPageVideo />
           </div>
+          <Separator />
 
           <div className="w-full flex flex-col md:flex-row-reverse md:justify-between md:items-center gap-10 group my-20">
             <div>
@@ -141,15 +190,26 @@ const BurnPage = async () => {
               </Link>
             </div>
 
-            <div className="w-full h-[200px] md:w-[480px] md:h-[300px] relative overflow-hidden">
-              <Link href={"https://staybull.giffordwear.win/"} target="_blank">
-                <Image
-                  src="/assets/images/stay_bull.png"
-                  alt="stay_bull_page"
-                  fill
-                  className="object-contain"
-                />
-              </Link>
+            <div className="relative w-full h-[200px] md:w-[480px] md:h-[300px]">
+              <div className="w-full h-[200px] md:w-[480px] md:h-[300px] relative overflow-hidden">
+                <Link
+                  href={"https://staybull.giffordwear.win/"}
+                  target="_blank"
+                >
+                  <Image
+                    src="/assets/images/stay_bull.png"
+                    alt="stay_bull_page"
+                    fill
+                    className="object-contain"
+                  />
+                </Link>
+              </div>
+
+              <MotionDiv
+                whileInView={{ x: [-200, 0] }}
+                transition={{ duration: 0.3, type: "spring", damping: 3 }}
+                className="absolute -top-2 -right-2 group-hover:-top-2 group-hover:right-2 ease-in duration-300 h-[200px] md:w-[480px] md:h-[300px] -z-10 bg-grad-3/30"
+              />
             </div>
           </div>
         </Wrapper>

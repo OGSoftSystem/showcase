@@ -9,6 +9,7 @@ import {
 import { NAV_LINKS } from "../../constants";
 import Logo from "./Logo";
 import { NavLink } from "./NavItems";
+import Link from "next/link";
 
 export const MobileNav = () => {
   return (
@@ -36,10 +37,10 @@ export const MobileNav = () => {
             ))}
           </div>
 
-          <div className="flex items-center space-x-2">
+          <Link href={"/"} className="flex items-center space-x-2">
             <Logo width={30} height={30} />
             <p className="text-sm uppercase">pLUSD</p>
-          </div>
+          </Link>
         </nav>
       </SheetContent>
     </Sheet>

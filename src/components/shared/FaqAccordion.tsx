@@ -20,22 +20,20 @@ const FaQAccordion = () => {
   const [selected, setSelected] = useState<QA | null>(null);
 
   return (
-    
-    <Accordion type="single" collapsible className="w-full lg:max-w-4xl" >
+    <Accordion type="single" collapsible className="w-full lg:max-w-4xl">
       {FAQ.map((ques: QA) => (
         <AccordionItem key={ques.question} value={ques.answer.main}>
           <AccordionTrigger
+            className="bg-grad-2/10 p-4"
             onClick={() => {
               setSelected(ques);
             }}
           >
-            <p className={cn("p-text font-[400] text-left")}>
-              {ques.question}
-            </p>
+            <p className={cn("p-text font-[400] text-left")}>{ques.question}</p>
           </AccordionTrigger>
           {/* If the current question is selected, show its answer */}
           {selected === ques && (
-            <AccordionContent>
+            <AccordionContent className="bg-grad-2/30 p-4">
               <>
                 <p className={cn("font-light leading-8 text-ring text-lg")}>
                   {ques.answer.main}
