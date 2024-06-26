@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+// import { Textarea } from "@/components/ui/textarea";
 import { createPost, findPostAndUpdate } from "@/lib/actions/post.actions";
 import { CreatePostSchema, CreatePostType } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,7 +27,10 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 
 type FormType = {

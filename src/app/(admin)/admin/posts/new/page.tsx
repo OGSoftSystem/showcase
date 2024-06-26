@@ -6,9 +6,10 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Posts",
 };
+
 export default async function NewPostPage() {
   return (
-    <section className="my-20">
+    <section className="paddingY">
       <Wrapper>
         <PageHeading
           pageTitle="Create Post."

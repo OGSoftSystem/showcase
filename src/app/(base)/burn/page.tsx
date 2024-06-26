@@ -49,7 +49,7 @@ async function getBurnPercentage() {
   return {
     amountBurned: data1.amountBurned,
     totalSupply: data1.totalSupply,
-    address369: Number(data2[0].value),
+    address369: Number(data2[0].value) || 0,
   };
 }
 const BurnPage = async () => {
