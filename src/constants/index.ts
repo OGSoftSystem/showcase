@@ -1,7 +1,7 @@
 import { FaXTwitter } from "react-icons/fa6";
 import { FaHome, FaBook, FaBurn, FaBlog } from "react-icons/fa";
 import { RiRoadMapLine } from "react-icons/ri";
-import { Newspaper, Users } from "lucide-react";
+import { Newspaper, Users, Wallet } from "lucide-react";
 
 type Props = { label?: string; url: string; Icon?: any };
 export const NAV_LINKS: Props[] = [
@@ -142,7 +142,7 @@ export const FAQ: {
   {
     question: "How much of pLUSD supply will we be burning?",
     answer: {
-      main: "95-99% if all available supply.",
+      main: "95-99% of all available supply.",
       // points: [],
     },
   },
@@ -192,9 +192,15 @@ export const DASHBOARD_LINKS = [
   },
   {
     title: "Posts",
-    description: "View all posts, create, update and delete",
+    description: "View all posts, create, update and delete.",
     Icon: Newspaper,
     href: "/admin/posts",
+  },
+  {
+    title: "xx369",
+    description: "Update xx369 burn percentage value.",
+    Icon: Wallet,
+    href: "/admin/burn-address",
   },
 ];
 

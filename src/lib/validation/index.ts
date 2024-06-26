@@ -83,3 +83,11 @@ export const ProfileSchema = z.object({
   imageUrl: z.any(),
 });
 export type ProfileType = z.infer<typeof ProfileSchema>;
+
+// Burn Value
+export const BurnSchema = z.object({
+  value: z
+    .string()
+    .min(2, { message: "Value should be at least 2 character long" }),
+});
+export type BurnType = z.infer<typeof BurnSchema>;

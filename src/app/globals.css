@@ -97,4 +97,7 @@ html {
   .error-alert {
     @apply bg-red-100 text-black;
   }
+  .paddingY {
+    @apply py-16 md:py-20;
+  }
 }

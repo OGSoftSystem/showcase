@@ -2,6 +2,7 @@ import { timelineElements } from "@/constants";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { cn } from "@/lib/utils";
+import { MotionDiv } from "./Motions";
 
 export default function RoadMap({ defaultColor }: { defaultColor: string }) {
   return (
@@ -44,7 +45,14 @@ export default function RoadMap({ defaultColor }: { defaultColor: string }) {
                 className={`${color} w-px h-full translate-x-5 translate-y-10 opacity-30`}
               />
 
-              <div
+              <MotionDiv
+              whileInView={{ 
+                x: [200 ,0]
+               }}
+               transition={{ 
+                type:'tween',
+                duration: 0.3
+                }}
                 className={cn(
                   "size-[40px] rounded-full md:flex items-center justify-center relative overflow-hidden hover:bg-grad-3 ease-in duration-300",
                   color
@@ -64,7 +72,7 @@ export default function RoadMap({ defaultColor }: { defaultColor: string }) {
                     hiddenMarker.find((i) => i === element.title) && "hidden"
                   )}
                 />
-              </div>
+              </MotionDiv>
 
               <div className={`${color} h-px w-8 translate-y-5 opacity-30`} />
             </div>

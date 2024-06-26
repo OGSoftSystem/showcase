@@ -19,7 +19,13 @@ export const NavItems = ({ className }: { className?: string }) => {
 
       <div className="flex items-center">
         {NAV_LINKS.map((link) => (
-          <NavLink key={link.label} href={link.url}>
+          <NavLink
+            key={link.label}
+            href={link.url}
+            target={
+              link.url === "https://x.com/pulseliquity" ? "_blank" : "_self"
+            }
+          >
             <div className="flex flex-col items-center">
               <span>{link.Icon && <link.Icon size={20} />}</span>
               <p className="text-sm md:text-[0.55rem] lg:[0.75rem]">
@@ -35,8 +41,6 @@ export const NavItems = ({ className }: { className?: string }) => {
 };
 
 export const AdminNavItems = ({ className }: { className?: string }) => {
-  const pathname = usePathname();
-
   return (
     <nav
       className={cn(
@@ -52,7 +56,7 @@ export const AdminNavItems = ({ className }: { className?: string }) => {
             key={link.label}
             href={link.url}
             target={
-              pathname.includes("https://x.com/pulseliquity") ? "_blank" : "_self"
+              link.url === "https://x.com/pulseliquity" ? "_blank" : "_self"
             }
           >
             <div className="flex flex-col items-center">

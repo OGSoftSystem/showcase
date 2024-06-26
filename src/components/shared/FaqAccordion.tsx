@@ -24,7 +24,7 @@ const FaQAccordion = () => {
       {FAQ.map((ques: QA) => (
         <AccordionItem key={ques.question} value={ques.answer.main}>
           <AccordionTrigger
-            className="bg-grad-2/10 p-4"
+            className="bg-black/20 p-4"
             onClick={() => {
               setSelected(ques);
             }}
@@ -33,7 +33,7 @@ const FaQAccordion = () => {
           </AccordionTrigger>
           {/* If the current question is selected, show its answer */}
           {selected === ques && (
-            <AccordionContent className="bg-grad-2/30 p-4">
+            <AccordionContent className="bg-black/30 p-4">
               <>
                 <p className={cn("font-light leading-8 text-ring text-lg")}>
                   {ques.answer.main}

@@ -6,6 +6,7 @@ import Logo from "./Logo";
 import Link from "next/link";
 
 const Footer = () => {
+  const year = new Date().getFullYear();
   return (
     <footer>
       <Wrapper>
@@ -30,7 +31,7 @@ const Footer = () => {
         </div>
       </Wrapper>
       <div className="text-center bg-black py-2">
-        @2024 pLUSD. All rights reserved.
+        @{year} pLUSD. All rights reserved.
       </div>
     </footer>
   );

@@ -18,7 +18,7 @@ const getAllPost = cache(
 const PostsPage = () => {
   return (
     <section>
-      <Wrapper className="mt-20">
+      <Wrapper className="paddingY">
         <PageHeading
           pageTitle="Posts"
           pageSubtitle="Read, Create, Update and Delete Posts"

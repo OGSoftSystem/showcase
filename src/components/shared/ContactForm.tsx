@@ -40,7 +40,6 @@ const ContactForm = ({ className }: { className?: string }) => {
   const onSubmitForm = async (data: ContactType) => {
     const message = await sendMessage(data);
     if (message?.error) {
-      console.log(message.error);
       toast({
         title: "An error occurred.",
         description: message.error,

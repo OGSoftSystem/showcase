@@ -14,7 +14,7 @@ const OurStoryPage = () => {
 
   return (
     <section>
-      <Wrapper className="py-20">
+      <Wrapper className="paddingY">
         <PageHeading
           pageTitle="Our Story"
           pageSubtitle="A little bit on our journey."

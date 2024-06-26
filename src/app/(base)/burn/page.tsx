@@ -10,18 +10,18 @@ import { MotionDiv } from "@/components/shared/Motions";
 import { AnimatedCount } from "./_components/AnimatedCount";
 import { CustomImage } from "@/components/shared/CustomImage";
 import { cache } from "@/lib/cache";
+import { findBurnValue } from "@/lib/actions/burn.actions";
 
-// f77dcb947812a4ff0175b4d9fbf70f9601149b95
 export const metadata: Metadata = {
   title: "Burn",
 };
 
 const getTokenBurnDetails = async () => {
   try {
-    const holders = await fetch(
+    const res = await fetch(
       `https://api.scan.pulsechain.com/api/v2/tokens/${process.env.CONTRACT_ADDRESS}/holders`
     );
-    const data = await holders.json();
+    const data = await res.json();
 
     if (!data) console.log("Error fetching token details.");
 
@@ -33,54 +33,8 @@ const getTokenBurnDetails = async () => {
     throw error;
   }
 };
-const getTokenInfo = async () => {
-  try {
-    const res = await fetch(
-      `https://pro-openapi.debank.com/v1/${process.env.CONTRACT_ADDRESS}/top_holders?chain_id=celo&id=celo&start=2&limit=1`,
 
-      {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-          AccessKey: "f77dcb947812a4ff0175b4d9fbf70f9601149b95",
-        },
-      }
-    );
-    // const data = await res.json();
-
-    // if (!data) console.log("Error fetching token details.");
-
-    return res;
-  } catch (error) {
-    throw error;
-  }
-};
-
-// const getAddress2Total = async ( ) => {
-//  try {
-//    const holders = await fetch(
-//      `https://api.scan.pulsechain.com/api/v2/tokens/${process.env.CONTRACT_ADDRESS}/holders`
-//    );
-//    const data = await holders.json();
-
-//    let n  = data.next_page_params;
-//    n.items_count = 100;
-
-//    return data.items.length
-// // if(n){
-// //   return getAddress2Total(2)
-// // }
-//   //  return {
-//   //    amountBurned: data.items[0].value,
-//   //    totalSupply: data.items[0].token.total_supply,
-//   //  };
-//  } catch (error) {
-//    throw error;
-//  }
-// };
-
-// Cache response from api for 1 day before revalidating data
-
+// Cache API response for 24hrs
 const getTokenDetail = cache(
   async () => {
     return await getTokenBurnDetails();
@@ -89,21 +43,26 @@ const getTokenDetail = cache(
   { revalidate: 60 * 60 * 24 }
 );
 
+async function getBurnPercentage() {
+  const [data1, data2] = await Promise.all([getTokenDetail(), findBurnValue()]);
+
+  return {
+    amountBurned: data1.amountBurned,
+    totalSupply: data1.totalSupply,
+    address369: Number(data2[0].value),
+  };
+}
 const BurnPage = async () => {
-  const { amountBurned, totalSupply } = await getTokenDetail();
+  const { amountBurned, totalSupply, address369 } = await getBurnPercentage();
 
   const extImage =
     "https://crapforcrypto.com/wp-content/uploads/2021/09/Pulse-Wallpaper-28-.jpg";
 
   const burnPercentage = (amountBurned / totalSupply) * 100;
 
-  // const info = await getTokenInfo();
-
-  // console.log("info: ", info);
-
   return (
     <>
-      <section className="pt-20">
+      <section className="pt-16 md:pt-20">
         <Wrapper className="md:mb-10">
           <PageHeading pageTitle="Burn" pageSubtitle="Learn about burning." />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full items-center mt-12">
@@ -160,7 +119,7 @@ const BurnPage = async () => {
             <h1 className="page-heading-2 my-4 mb-10">We are currently at</h1>
             {/* <ExternalSite /> */}
             <div className="w-full flex justify-center space-x-2">
-              <AnimatedCount end={burnPercentage + 0.2} />
+              <AnimatedCount end={burnPercentage + address369} />
             </div>
           </div>
 
@@ -186,7 +145,7 @@ const BurnPage = async () => {
                 target="_blank"
                 className="page-heading-2 group-hover:text-grad-1"
               >
-                Connect your wallet and try StayBull.
+                Connect your wallet to use StayBull.
               </Link>
             </div>
 
@@ -208,7 +167,7 @@ const BurnPage = async () => {
               <MotionDiv
                 whileInView={{ x: [-200, 0] }}
                 transition={{ duration: 0.3, type: "spring", damping: 3 }}
-                className="absolute -top-2 -right-2 group-hover:-top-2 group-hover:right-2 ease-in duration-300 h-[200px] md:w-[480px] md:h-[300px] -z-10 bg-grad-3/30"
+                className="absolute top-2 group-hover:-top-2 right-1 group-hover:-right-2 ease-in duration-300 w-[93%] h-[200px] md:w-[480px] md:h-[300px] -z-10 bg-grad-3/30"
               />
             </div>
           </div>

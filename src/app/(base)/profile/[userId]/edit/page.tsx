@@ -14,7 +14,7 @@ const UserProfilePage = async ({
   const user: UserType = await findUserById(userId);
 
   return (
-    <Wrapper className="py-20">
+    <Wrapper className="paddingY">
       <EditUserProfileForm user={user} />
     </Wrapper>
   );

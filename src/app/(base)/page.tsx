@@ -1,4 +1,4 @@
-import ContactForm from "@/components/shared/ContactForm";
+// import ContactForm from "@/components/shared/ContactForm";
 import FaQAccordion from "@/components/shared/FaqAccordion";
 import { MotionDiv } from "@/components/shared/Motions";
 import RoadMap from "@/components/shared/RoadMap";
@@ -15,7 +15,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { NOTES } from "@/constants";
 import { cache } from "@/lib/cache";
-import { formatDateTime } from "@/lib/utils";
+// import { formatDateTime } from "@/lib/utils";
 import { ArrowDown, ArrowRight, ArrowUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -74,7 +74,7 @@ export default function Home() {
           </MotionDiv>
         </Wrapper>
 
-        <div className="absolute blur-[100px] top-20 size-[280px] md:top-16 md:right-5 bg-gradient-to-tr from-grad-3 to-70% via-grad-2 to-grad-1 md:blur-[150px] md:size-2/4 rounded-full -z-10" />
+        <div className="absolute blur-[100px] top-20 size-[280px] md:top-16 md:right-5 bg-gradient-to-tr from-grad-3 to-70% via-grad-2 to-grad-1 md:blur-[160px] md:size-2/4 rounded-full -z-10" />
       </section>
 
       {/* Live Tx */}
@@ -153,7 +153,7 @@ export default function Home() {
                 duration: 0.7,
               }}
               key={note.title}
-              className="z-10 space-y-4 flex flex-col h-auto items-center hover:bg-grad-2/10 p-4 rounded-md transition-all duration-300 ease-in"
+              className="z-10 space-y-4 flex flex-col h-auto items-center hover:bg-grad-2/10 p-4 rounded-lg transition-all duration-300 ease-in"
             >
               <h1 className="mb-4 text-accent-foreground font-semibold text-2xl">
                 {note.title}
@@ -203,7 +203,7 @@ export default function Home() {
         <div className="absolute top-48 right-5 blur-[140px] size-[200px] md:top-20 md:left-5 bg-gradient-to-tr from-grad-2 to-70% via-grad-1 to-grad-3 md:blur-[170px] md:size-2/6 rounded-full -z-10" />
       </section>
 
-      <section id="contact" className="py-20 relative z-10">
+      {/* <section id="contact" className="py-20 relative z-10">
         <Wrapper>
           <Separator />
           <LandingPageHeading title="Contact" subtitle="Reach us" />
@@ -221,7 +221,7 @@ export default function Home() {
           </MotionDiv>
         </Wrapper>
         <div className="absolute top-48 right-5 blur-[140px] size-[200px] md:top-20 md:right-5 bg-gradient-to-tr from-grad-1 to-70% via-grad-3 to-grad-2 md:blur-[170px] md:size-2/6 rounded-full -z-10" />
-      </section>
+      </section> */}
     </>
   );
 }
@@ -265,6 +265,8 @@ const getTx = cache(
 );
 
 async function Fetch3Transactions() {
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
+
   const data = await getTx();
 
   return data.map(
@@ -282,9 +284,9 @@ async function Fetch3Transactions() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-xl font-noto">Transactions</CardTitle>
+              <CardTitle className="text-xl font-noto">Transaction</CardTitle>
               <CardDescription className="font-hind ">
-                Transaction at {item.timestamp?.split("T")[1].split(".")[0]} -{" "}
+                Occurred at {item.timestamp?.split("T")[1].split(".")[0]} -{" "}
                 {item.timestamp?.split("T")[0]}
               </CardDescription>
             </div>
@@ -337,38 +339,38 @@ async function Fetch3Transactions() {
 
 function TxSkeleton() {
   return (
-    <div className="bg-gray-300 animate-pulse">
+    <div className="w-[300px] animate-pulse">
       <div>
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-xl w-6 h-4 bg-gray-200" />
-            <div className="text-xl w-10 h-4 bg-gray-200" />
+            <div className="text-xl w-[300px] h-4 bg-gray-200" />
+            <div className="text-xl w-[300px]  h-4 bg-gray-200" />
           </div>
 
-          <div className="w-8 h-4 rounded-full bg-gray-400 text-white" />
+          <div className="size-10 rounded-full bg-gray-400 text-white" />
         </div>
       </div>
       <div className="pb-5">
         <div>
           <span className="inline-flex items-center space-x-2 ">
-            <div className="bg-gray-200 size-2" />
+            <div className="bg-gray-200 w-[100px] h-4" />
           </span>
 
-          <div className="w-8 h-4 bg-gray-200 " />
+          <div className="w-[280px] h-4 bg-gray-200 " />
         </div>
 
         <div>
           <span className="inline-flex items-center space-x-2 ">
-            <div className="bg-gray-200 size-2" />
+            <div className="bg-gray-200 w-[100px] h-4" />
           </span>
 
-          <div className="w-10 h-4 bg-gray-200 " />
+          <div className="w-[280px] h-4 bg-gray-200 " />
         </div>
       </div>
 
       <Separator />
 
-      <div className="size-4 bg-gray-200 " />
+      <div className="w-[300px] h-4 bg-gray-200 " />
     </div>
   );
 }

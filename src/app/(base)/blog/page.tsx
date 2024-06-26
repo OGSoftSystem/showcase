@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 const BlogPage = () => {
   return (
-    <section className="mt-10 lg:mt-20">
+    <section className="paddingY">
       <Wrapper className="py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full items-center">
           <div className="relative w-[20rem] h-[20rem] md:w-[18rem] lg:w-[30rem] lg:h-[30rem] col-span-1">

@@ -26,8 +26,8 @@ const UsersPage = async () => {
   if (users == null) return notFound();
 
   return (
-    <section className="mt-10 lg:mt-20">
-      <Wrapper>
+    <section>
+      <Wrapper className="paddingY">
         <PageHeading pageTitle="Users" pageSubtitle="All registered users." />
         <div className="lg:max-w-5xl mx-auto md:flex flex-col justify-center">
           {/* <UsersTable users={users} /> */}
