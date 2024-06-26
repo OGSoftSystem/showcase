@@ -35,7 +35,7 @@ const SignIn = async () => {
                 className="flex items-center space-x-2 w-full rounded-full bg-grad-1/30 hover:bg-grad-1/50 cursor-pointer h-12"
               >
                 <FaGoogle size={25} />
-                <p className="p-text">Sign In With Google</p>
+                <p className="p-text hidden md:block">Sign In With Google</p>
               </Button>
             </form>
           </div>

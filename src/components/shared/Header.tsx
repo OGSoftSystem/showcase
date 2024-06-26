@@ -5,7 +5,7 @@ import { AdminNavItems, NavItems } from "./NavItems";
 import { AdminMobileNav, MobileNav } from "./MobileNav";
 import Logo from "./Logo";
 import Admin from "./Admin";
-import { Button} from "../ui/button";
+import { Button } from "../ui/button";
 import Link from "next/link";
 import { handleSignOut } from "@/lib/actions/nextAuth5.actions";
 import {
@@ -54,7 +54,7 @@ export function Header() {
               <NavItems />
             </div>
 
-            {/* <Pop /> */}
+            <Pop />
 
             <div className="md:hidden ml-4">
               <MobileNav />
@@ -88,7 +88,7 @@ export async function AdminHeader() {
             <AdminNavItems />
           </div>
 
-          {/* <Pop /> */}
+          <Pop />
 
           <div className="md:hidden ml-4">
             <AdminMobileNav />

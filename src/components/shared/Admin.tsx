@@ -10,7 +10,7 @@ const Admin = ({
 }) => {
   return (
     <div className={cn("", className)}>
-      <div className="relative size-[2.3rem] rounded-full overflow-hidden">
+      <div className="relative size-[2rem] md:size-[2.3rem] rounded-full overflow-hidden">
         <Image src={imageUrl as string} alt="user" fill />
       </div>
     </div>
