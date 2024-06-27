@@ -9,8 +9,12 @@ import PageHeading from "@/components/shared/PageHeading";
 import { MotionDiv } from "@/components/shared/Motions";
 import { AnimatedCount } from "./_components/AnimatedCount";
 import { CustomImage } from "@/components/shared/CustomImage";
-import { cache } from "@/lib/cache";
+// import { cache } from "@/lib/cache";
 import { findBurnValue } from "@/lib/actions/burn.actions";
+
+// ETHERS
+// import { ethers } from "ethers";
+// import contractABI from "../../../contract-abi.json";
 
 export const metadata: Metadata = {
   title: "Burn",
@@ -34,26 +38,65 @@ const getTokenBurnDetails = async () => {
   }
 };
 
+// Uncomment this to use cache
+
 // Cache API response for 24hrs
-const getTokenDetail = cache(
-  async () => {
-    return await getTokenBurnDetails();
-  },
-  ["getTokenDetail"],
-  { revalidate: 60 * 60 * 24 }
-);
+// const getTokenDetail = cache(
+//   async () => {
+//     return await getTokenBurnDetails();
+//   },
+//   ["getTokenDetail"],
+//   { revalidate: 60 * 30 }
+// );
+
+// Uncomment to fetch via infura
+
+// const address369 = "0x0000000000000000000000000000000000000369";
+
+// async function getTokenBalance() {
+//   const network = process.env.INFURA_NETWORK;
+//   const provider = new ethers.InfuraProvider(
+//     network,
+//     process.env.INFURA_API_KEY
+//   );
+
+//   const tokenContract = new ethers.Contract(
+//     process.env.CONTRACT_ADDRESS as string,
+//     contractABI,
+//     provider
+//   );
+
+//   try {
+//     const addressBalance = await tokenContract.balanceOf(address369);
+//     const decimals = await tokenContract.decimals();
+//     const adjustedBalance = ethers.formatUnits(addressBalance, decimals);
+
+//     return { xx369Balance: adjustedBalance };
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 async function getBurnPercentage() {
-  const [data1, data2] = await Promise.all([getTokenDetail(), findBurnValue()]);
+  const [data1, data2] = await Promise.all([
+    getTokenBurnDetails(),
+    findBurnValue(),
+    // getTokenBalance(),
+  ]);
 
   return {
     amountBurned: data1.amountBurned,
     totalSupply: data1.totalSupply,
     address369: Number(data2[0].value) || 0,
+    // xx369Balance: data3.xx369Balance || 0,
   };
 }
+
 const BurnPage = async () => {
   const { amountBurned, totalSupply, address369 } = await getBurnPercentage();
+
+  // const xx369Balance = await getTokenBalance();
+  // console.log(xx369Balance);
 
   const extImage =
     "https://crapforcrypto.com/wp-content/uploads/2021/09/Pulse-Wallpaper-28-.jpg";
